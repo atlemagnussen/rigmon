@@ -6,18 +6,10 @@ const net = require('net');
 const config = require('../config.json');
 // logger
 const log4js = require('log4js');
-log4js.configure({
-  appenders: { cheese: { type: 'file', filename: 'cheese.log' } },
-  categories: { default: { appenders: ['cheese'], level: 'error' } }
-});
+log4js.configure(config.log);
 
 const logger = log4js.getLogger('cheese');
-logger.trace('Entering cheese testing');
-logger.debug('Got cheese.');
-logger.info('Cheese is Gouda.');
-logger.warn('Cheese is quite smelly.');
-logger.error('Cheese is too ripe!');
-logger.fatal('Cheese was breeding ground for listeria.');
+logger.debug('Booting');
 
 if (config.rigs) {
     let rigs = 0;
@@ -34,13 +26,13 @@ if (config.rigs) {
 
     console.log("rigs:" + rigs + ", miners: " + miners);
     if (miners === 0) {
-        console.log("Rigs but no miners, quit!");
+        logger.error("Rigs but no miners, quit!");
         return;
     }
 
 } else {
-    console.log("No rigs defined, exit!");
+    logger.error("No rigs defined, exit!");
     return;
 }
 
-console.log("made it past the checks");
+logger.info("made it past the checks, let's go!");

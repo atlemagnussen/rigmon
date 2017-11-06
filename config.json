@@ -33,5 +33,14 @@
                 }
             ]
         }
+    },
+    "log": {
+      "appenders": {
+          "tofile": { "type": "file", "filename": "minermon.log" },
+          "console": { "type": "console" }
+      },
+      "categories": {
+          "default": { "appenders": ["tofile", "console"], "level": "debug" }
+      }
     }
 }
