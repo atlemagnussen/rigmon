@@ -1,9 +1,18 @@
+var path = require('path');
 var express = require('express');
-var app = express();
 const net = require('net');
 
+// static server
+var port = 8088;
+var app = express();
+var router = express.Router();
+app.use(express.static(path.join(__dirname, 'client')));
+app.get('/', function(req, res) {
+  res.sendfile(__dirname + './client/index.html');
+});
+
 // config file
-const config = require('../config.json');
+const config = require('./config.json');
 // logger
 const log4js = require('log4js');
 log4js.configure(config.log);
@@ -36,3 +45,11 @@ if (config.rigs) {
 }
 
 logger.info("made it past the checks, let's go!");
+
+router.get('/', function (req, res) {
+    res.json({ message: 'hooray! welcome to our api!' });
+});
+
+app.use('/api', router);
+app.listen(port);
+logger.info("Listening on port: " + port);

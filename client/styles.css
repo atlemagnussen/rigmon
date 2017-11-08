@@ -1,0 +1,129 @@
+html {
+    background-color: yellow;
+    height: 100%;
+    width: 100%;
+}
+body {
+    font-family: Arial, 'Lucida Sans Unicode';
+    background-color: black;
+    color: white;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.content {
+    background-color: green;
+    background: green;
+    background: linear-gradient(#436060, #001400);
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+.upper-container {
+    box-sizing: border-box;
+    height:60%;
+}
+.lower-container {
+    box-sizing: border-box;
+    height: 40%;
+}
+.full {
+    margin: 5px auto;
+    width: 95%;
+    height: 95%;
+}
+h1 {
+    margin: 0;
+    text-align: center;
+}
+.menucolumn {
+    margin-top: 30px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+}
+.menucolumn input, .menucolumn button {
+    margin: 5px;
+}
+.flex-container {
+    display: flex;
+}
+.upper-container .flex-container {
+    margin: 5px auto;
+    width: 80%;
+}
+.lower-container .flex-container {
+    height: 100%;
+}
+.column {
+    min-width: 100px;
+    width: 40%;
+    margin: 0 5px;
+}
+.column.right-align {
+    text-align: right;
+}
+.outputcommands {
+    color: white;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.outputcommands:focus {
+    outline: none;
+}
+label {
+
+}
+textarea, input, button{
+    box-sizing: border-box;
+    background-color: rgba(105,100,100,0.3);
+    color: #EEE;
+    resize: none;
+}
+button {
+    background-color: rgba(0,0,0,0.3);
+    line-height: 2;
+    font-size: 1em;
+}
+button.small {
+    line-height: 1.5;
+    font-size: 0.7em;
+    width: 30%;
+}
+input[type="text"]  {
+    width: 99%;
+    font-family: Arial, 'Lucida Sans Unicode';
+}
+input.half {
+    width: 49%;
+}
+input[type="number"]  {
+    width: 50px;
+    font-family: Arial, 'Lucida Sans Unicode';
+}
+.small {
+    font-size: 70%
+}
+#query {
+    width: 99%;
+}
+#version {
+    text-align: right;
+    float: right;
+}
+
+/******** scrollbar *********/
+::-webkit-scrollbar {
+    /*background:rgba(1,1,1,0.5);*/
+    background-color: transparent;
+    /*width: .8em*/
+    /*opacity:0.1;*/
+}
+
+::-webkit-scrollbar-thumb:window-inactive,
+::-webkit-scrollbar-thumb {
+        background:  white
+}
