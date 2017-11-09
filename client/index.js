@@ -13,9 +13,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function reqListener(e) {
         if (this.responseText) {
-            textAreaOutput.value += this.responseText;
+            textAreaOutput.value += "\n" + this.responseText;
         }
     }
 
-    console.log("Loaded! " + new Date());
+    var loaded = "Loaded! " + new Date();
+    textAreaOutput.value += loaded;
+    console.log(loaded);
 });

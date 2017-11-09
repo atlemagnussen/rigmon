@@ -47,7 +47,7 @@ if (config.rigs) {
 logger.info("made it past the checks, let's go!");
 
 router.get('/', function (req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });
+    res.json({ message: 'no rigs!! Need some websocket here right' });
 });
 
 app.use('/api', router);
