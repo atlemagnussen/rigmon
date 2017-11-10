@@ -24,6 +24,7 @@
   "homepage": "https://github.com/atlemagnussen/attz-minermon#readme",
   "dependencies": {
     "express": "^4.16.2",
-    "log4js": "^2.3.11"
+    "log4js": "^2.3.11",
+    "moment": "^2.19.1"
   }
 }

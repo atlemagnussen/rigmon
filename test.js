@@ -1,43 +1,45 @@
-const Claymore = require('./claymore.js');
-
-const config = require('./config.json');
-
-// logger
+var path = require('path');
+var express = require('express');
+const Rpc = require('./rpc.js');
 const log4js = require('log4js');
+
+// config file
+const config = require('./config.json');
+// logger
+
 log4js.configure(config.log);
 
 const logger = log4js.getLogger('rigmon');
+logger.debug('Booting');
 
-if (config.rigs) {
-    let rigs = 0;
-    let miners = 0;
-    for(var r in config.rigs) {
-        if(config.rigs.hasOwnProperty(r)) {
-            rigs++;
-            let rig = config.rigs[r];
-            if (rig.miners && Array.isArray(rig.miners)) {
-                miners += rig.miners.length;
-            }
-        }
-    }
+// static server
+var port = 8088;
+var app = express();
+var router = express.Router();
+app.use(express.static(path.join(__dirname, 'client')));
+app.get('/', function(req, res) {
+  res.sendfile(__dirname + './client/index.html');
+});
 
-    console.log("rigs:" + rigs + ", miners: " + miners);
-    if (miners === 0) {
-        logger.error("Rigs but no miners, quit!");
-        return;
-    }
 
-} else {
-    logger.error("No rigs defined, exit!");
-    return;
-}
+var req = '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}';
+var rig2 = {
+    "host": "57.57.57.6",
+    "port": 3333
+};
+var rig3 = {
+    "host": "57.57.57.7",
+    "port": 3333
+};
+var rigs = {
+    r3: new Rpc.Tcp(rig3, req),
+    r2: new Rpc.Tcp(rig2, req)
+};
 
-var rpcrig3 = new Claymore(rig3);
-var rpcrig2 = new Claymore(rig2);
+router.get('/', function (req, res) {
+    res.json({ message: 'no rigs!! Need some websocket here right' });
+});
 
-function poll(){
-    rpcrig3.connect();
-    rpcrig2.connect();
-}
-
-poll();
+app.use('/api', router);
+app.listen(port);
+logger.info("Listening on port: " + port);

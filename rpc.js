@@ -1,11 +1,17 @@
 var net = require('net');
+var Rig = require('./rig.js')
 
 class Tcp{
     constructor(params, req) {
         this.params = params;
+
+        this.rig = new Rig(5000)
+        .on('refresh', () => {
+            this.connect();
+        });
+
         this.socket = new net.Socket()
         .on('data', function(data) {
-            console.log(data);
             var d = JSON.parse(data);
             console.log(JSON.stringify(d,null,2));
         })
@@ -21,7 +27,6 @@ class Tcp{
         .on('connect', function() {
             console.log(': connected to ' + this.remoteAddress + ':' + this.remotePort);
             this.write(req + '\n');
-            this.setTimeout(30);
         });
     }
 
