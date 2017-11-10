@@ -1,4 +1,4 @@
-const Rcp = require('./rcp.js');
+const Rpc = require('./rpc.js');
 
 var req = '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}';
 var rig2 = {
