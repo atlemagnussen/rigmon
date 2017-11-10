@@ -1,7 +1,7 @@
 var net = require('net');
 
 class Tcp{
-    constructor(params) {
+    constructor(params, req) {
         this.params = params;
         this.socket = new net.Socket()
         .on('data', function(data) {
@@ -17,15 +17,12 @@ class Tcp{
         })
         .on('error', function() {
             console.log('error');
-        });
-    }
-    call(req) {
-        this.socket.on('connect', function() {
+        })
+        .on('connect', function() {
             console.log(': connected to ' + this.remoteAddress + ':' + this.remotePort);
             this.write(req + '\n');
             this.setTimeout(30);
         });
-        this.connect();
     }
 
     connect() {

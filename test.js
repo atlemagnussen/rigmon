@@ -1,20 +1,43 @@
-const Rpc = require('./rpc.js');
+const Claymore = require('./claymore.js');
 
-var req = '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}';
-var rig2 = {
-    "host": "57.57.57.6",
-    "port": 3333
-};
-var rig3 = {
-    "host": "57.57.57.7",
-    "port": 3333
-};
-var rpcrig3 = new Rpc.Tcp(rig3);
-var rpcrig2 = new Rpc.Tcp(rig2);
+const config = require('./config.json');
+
+// logger
+const log4js = require('log4js');
+log4js.configure(config.log);
+
+const logger = log4js.getLogger('rigmon');
+
+if (config.rigs) {
+    let rigs = 0;
+    let miners = 0;
+    for(var r in config.rigs) {
+        if(config.rigs.hasOwnProperty(r)) {
+            rigs++;
+            let rig = config.rigs[r];
+            if (rig.miners && Array.isArray(rig.miners)) {
+                miners += rig.miners.length;
+            }
+        }
+    }
+
+    console.log("rigs:" + rigs + ", miners: " + miners);
+    if (miners === 0) {
+        logger.error("Rigs but no miners, quit!");
+        return;
+    }
+
+} else {
+    logger.error("No rigs defined, exit!");
+    return;
+}
+
+var rpcrig3 = new Claymore(rig3);
+var rpcrig2 = new Claymore(rig2);
 
 function poll(){
-    rpcrig3.call(req);
-    rpcrig2.call(req);
+    rpcrig3.connect();
+    rpcrig2.connect();
 }
 
 poll();
