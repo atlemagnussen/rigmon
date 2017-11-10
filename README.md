@@ -1,5 +1,7 @@
 # Rigmon
 
+(early alpha, not working yet)
+
 Miner monitor for different cpu and gpu miners with a data api
 
 ## Supported miners
