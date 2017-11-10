@@ -1,7 +1,17 @@
 var net = require('net');
 
 class Rpc {
+    constructor() {
+
+    }
+    get Tcp() {
+        return RpcTpc;
+    }
+}
+
+class RpcTpc {
     constructor(params) {
+        super(params);
         this.params = params;
         this.socket = new net.Socket()
         .on('data', function(data) {
@@ -19,7 +29,6 @@ class Rpc {
             console.log('error');
         });
     }
-
     call(req) {
         this.socket.on('connect', function() {
             console.log(': connected to ' + this.remoteAddress + ':' + this.remotePort);
@@ -46,8 +55,8 @@ var rig3 = {
     "host": "57.57.57.7",
     "port": 3333
 };
-var rpcrig3 = new Rpc(rig3);
-var rpcrig2 = new Rpc(rig2);
+var rpcrig3 = new Rpc.Tcp(rig3);
+var rpcrig2 = new Rpc.Tcp(rig2);
 
 function poll(){
     rpcrig3.call(req);
