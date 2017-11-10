@@ -11,7 +11,6 @@ class Rpc {
 
 class RpcTpc {
     constructor(params) {
-        super(params);
         this.params = params;
         this.socket = new net.Socket()
         .on('data', function(data) {
