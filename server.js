@@ -26,7 +26,7 @@ wss.on('connection', function connection(ws, req) {
         console.log('received: %s', message);
     });
 
-    ws.send('something');
+    ws.send('Hello from server!');
 });
 
 var rigObj = []
@@ -40,6 +40,7 @@ if (config.rigs) {
                     if (miner.type === "claymore") {
                         var o = new Claymore(r, miner, config.refreshMs)
                         .on('data', (data) => {
+                            logger.debug("clients: " + wss.clients.size);
                             wss.clients.forEach(function each(ws) {
                                 logger.debug("ws.readyState: " + ws.readyState);
                                 // if (ws.readyState === 3) {

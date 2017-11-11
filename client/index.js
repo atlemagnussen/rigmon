@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     setTimeout(initWs, 2000);
 
-    var loaded = "Loaded! " + new Date();
+    var loaded = "Loaded client " + new Date();
     showMessage(loaded);
     console.log(loaded);
 });
