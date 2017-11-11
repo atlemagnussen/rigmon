@@ -2,7 +2,6 @@ const config = require('./config.js');
 const logger = require('./logger.js');
 logger.debug('Booting');
 
-
 var path = require('path');
 var express = require('express');
 const Claymore = require('./claymore.js');

@@ -1,6 +1,11 @@
-var path = require('path');
-var express = require('express');
-const net = require('net');
+const config = require('./config.js');
+const logger = require('./logger.js');
+logger.debug('Booting');
+
+const path = require('path');
+const express = require('express');
+const WebSocket = require('ws');
+const Claymore = require('./claymore.js');
 
 // static server
 var port = 8088;
@@ -10,41 +15,25 @@ app.use(express.static(path.join(__dirname, 'client')));
 app.get('/', function(req, res) {
   res.sendfile(__dirname + './client/index.html');
 });
-
-// config file
-const config = require('./config.json');
-// logger
-const log4js = require('log4js');
-log4js.configure(config.log);
-
-const logger = log4js.getLogger('rigmon');
-logger.debug('Booting');
-
+const wss = new WebSocket.Server({ port: port });
+var rigObj = []
 if (config.rigs) {
-    let rigs = 0;
-    let miners = 0;
     for(var r in config.rigs) {
         if(config.rigs.hasOwnProperty(r)) {
-            rigs++;
             let rig = config.rigs[r];
             if (rig.miners && Array.isArray(rig.miners)) {
-                miners += rig.miners.length;
+                for(var i=0; i<rig.miners.length; i++) {
+                    var miner = rig.miners[i];
+                    if (miner.type === "claymore") {
+                        var o = new Claymore(r, miner, config.refreshMs);
+                        rigObj.push(o);
+                    }
+                }
             }
         }
     }
-
-    console.log("rigs:" + rigs + ", miners: " + miners);
-    if (miners === 0) {
-        logger.error("Rigs but no miners, quit!");
-        return;
-    }
-
-} else {
-    logger.error("No rigs defined, exit!");
-    return;
 }
 
-logger.info("made it past the checks, let's go!");
 
 router.get('/', function (req, res) {
     res.json({ message: 'no rigs!! Need some websocket here right' });

@@ -23,8 +23,11 @@
   },
   "homepage": "https://github.com/atlemagnussen/attz-minermon#readme",
   "dependencies": {
+    "bufferutil": "3.0.3",
     "express": "^4.16.2",
     "log4js": "^2.3.11",
-    "moment": "^2.19.1"
+    "moment": "^2.19.1",
+    "utf-8-validate": "3.0.4",
+    "ws": "3.3.1"
   }
 }
