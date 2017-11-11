@@ -1,19 +1,21 @@
+const logger = require('./logger.js');
 var net = require('net');
-var Rig = require('./rig.js')
+var Rig = require('./rig.js');
 
-class Tcp{
-    constructor(params, req) {
-        this.params = params;
+class Tcp {
+    constructor(rigName, config, req, refreshMs) {
+        this.config = config;
 
-        this.rig = new Rig(5000)
-        .on('refresh', () => {
+        this.rig = new Rig(rigName, refreshMs)
+        .on('refresh', (name) => {
+            logger.debug(`Refresh ${name}`);
             this.connect();
         });
 
         this.socket = new net.Socket()
         .on('data', function(data) {
             var d = JSON.parse(data);
-            console.log(JSON.stringify(d,null,2));
+            logger.debug(`Refresh ${JSON.stringify(d)}`);
         })
         .on('close', function() {
             console.log('close');
@@ -25,14 +27,14 @@ class Tcp{
             console.log('error');
         })
         .on('connect', function() {
-            console.log(': connected to ' + this.remoteAddress + ':' + this.remotePort);
+            logger.debug(`: connected to ${this.remoteAddress} ${this.remotePort}`);
             this.write(req + '\n');
         });
     }
 
     connect() {
-        console.log(`connect ${this.params.host}:${this.params.port}`);
-        this.socket.connect(this.params.port, this.params.host);
+        logger.debug(`connect ${this.config.host}:${this.config.port}`);
+        this.socket.connect(this.config.port, this.config.host);
     }
 }
 

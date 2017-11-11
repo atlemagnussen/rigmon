@@ -1,16 +1,14 @@
-var path = require('path');
-var express = require('express');
-const Rpc = require('./rpc.js');
-const log4js = require('log4js');
-
 // config file
 const config = require('./config.json');
 // logger
-
-log4js.configure(config.log);
-
-const logger = log4js.getLogger('rigmon');
+const logger = require('./logger.js');
 logger.debug('Booting');
+
+
+var path = require('path');
+var express = require('express');
+const Claymore = require('./claymore.js');
+
 
 // static server
 var port = 8088;
@@ -22,7 +20,6 @@ app.get('/', function(req, res) {
 });
 
 
-var req = '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}';
 var rig2 = {
     "host": "57.57.57.6",
     "port": 3333
@@ -32,8 +29,8 @@ var rig3 = {
     "port": 3333
 };
 var rigs = {
-    r3: new Rpc.Tcp(rig3, req),
-    r2: new Rpc.Tcp(rig2, req)
+    r2: new Claymore("rig2", rig2, 2000),
+    r3: new Claymore("rig3", rig3, 5000)
 };
 
 router.get('/', function (req, res) {

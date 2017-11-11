@@ -1,9 +1,9 @@
 const Rpc = require('./rpc.js');
 
 class Claymore extends Rpc.Tcp {
-    constructor(params, refreshMs) {
+    constructor(rigName, config, refreshMs) {
         var request = '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}';
-        super(params, request, refreshMs);
+        super(rigName, config, request, refreshMs);
     }
 }
 
