@@ -4,6 +4,9 @@ const logger = require('./logger.js');
 if (!config.refreshMs || isNaN(config.refreshMs)) {
     config.refreshMs = 5000;
 }
+if (!config.port || isNaN(config.port)) {
+    config.port = 8088;
+}
 
 if (config.rigs) {
     let rigs = 0;
@@ -33,5 +36,6 @@ if (config.rigs) {
 
 module.exports = {
     rigs: config.rigs,
-    refreshMs: config.refreshMs
+    refreshMs: config.refreshMs,
+    port: config.port
 };
