@@ -29,8 +29,8 @@ var rig3 = {
     "port": 3333
 };
 var rigs = {
-    r2: new Claymore("rig2", rig2, 2000),
-    r3: new Claymore("rig3", rig3, 5000)
+    r2: new Claymore("rig2", rig2, 5000).on('data', function(d) { logger.debug(`update data ${JSON.stringify(d, null, 2)}`); }),
+    r3: new Claymore("rig3", rig3, 5000).on('data', function(d) { logger.debug(`update data ${JSON.stringify(d, null, 2)}`); })
 };
 
 router.get('/', function (req, res) {

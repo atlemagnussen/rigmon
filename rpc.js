@@ -2,38 +2,38 @@ const logger = require('./logger.js');
 var net = require('net');
 var Rig = require('./rig.js');
 
-class Tcp {
+class Tcp extends Rig{
     constructor(rigName, config, req, refreshMs) {
-        this.config = config;
-
-        this.rig = new Rig(rigName, refreshMs)
-        .on('refresh', (name) => {
+        super(rigName, refreshMs);
+        this.on('refresh', (name) => {
             logger.debug(`Refresh ${name}`);
             this.connect();
         });
+        this.config = config;
 
         this.socket = new net.Socket()
-        .on('data', function(data) {
+        .on('data', (data) => {
             var d = JSON.parse(data);
-            logger.debug(`Refresh ${JSON.stringify(d)}`);
+            logger.trace("Tcp Data arrived");
+            this.emit('data', d);
         })
         .on('close', function() {
-            console.log('close');
+            logger.trace('close');
         })
         .on('timeout', function() {
-            console.log('timeout');
+            logger.trace('timeout');
         })
         .on('error', function() {
-            console.log('error');
+            logger.trace('error');
         })
         .on('connect', function() {
-            logger.debug(`: connected to ${this.remoteAddress} ${this.remotePort}`);
+            logger.trace(`: connected to ${this.remoteAddress} ${this.remotePort}`);
             this.write(req + '\n');
         });
     }
 
     connect() {
-        logger.debug(`connect ${this.config.host}:${this.config.port}`);
+        logger.trace(`connect ${this.config.host}:${this.config.port}`);
         this.socket.connect(this.config.port, this.config.host);
     }
 }
