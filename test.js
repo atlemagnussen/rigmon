@@ -1,6 +1,4 @@
-// config file
-const config = require('./config.json');
-// logger
+const config = require('./config.js');
 const logger = require('./logger.js');
 logger.debug('Booting');
 
@@ -19,19 +17,24 @@ app.get('/', function(req, res) {
   res.sendfile(__dirname + './client/index.html');
 });
 
+var rigObj = []
+if (config.rigs) {
+    for(var r in config.rigs) {
+        if(config.rigs.hasOwnProperty(r)) {
+            let rig = config.rigs[r];
+            if (rig.miners && Array.isArray(rig.miners)) {
+                for(var i=0; i<rig.miners.length; i++) {
+                    var miner = rig.miners[i];
+                    if (miner.type === "claymore") {
+                        var o = new Claymore(r, miner, config.refreshMs);
+                        rigObj.push(o);
+                    }
+                }
+            }
+        }
+    }
+}
 
-var rig2 = {
-    "host": "57.57.57.6",
-    "port": 3333
-};
-var rig3 = {
-    "host": "57.57.57.7",
-    "port": 3333
-};
-var rigs = {
-    r2: new Claymore("rig2", rig2, 5000).on('data', function(d) { logger.debug(`update data ${JSON.stringify(d, null, 2)}`); }),
-    r3: new Claymore("rig3", rig3, 5000).on('data', function(d) { logger.debug(`update data ${JSON.stringify(d, null, 2)}`); })
-};
 
 router.get('/', function (req, res) {
     res.json({ message: 'no rigs!! Need some websocket here right' });
