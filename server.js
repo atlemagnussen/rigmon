@@ -38,21 +38,7 @@ if (config.rigs) {
                 for(var i=0; i<rig.miners.length; i++) {
                     var miner = rig.miners[i];
                     if (miner.type === "claymore") {
-                        var o = new Claymore(r, miner, config.refreshMs)
-                        .on('data', (data) => {
-                            logger.debug("clients: " + wss.clients.size);
-                            wss.clients.forEach(function each(ws) {
-                                logger.debug("ws.readyState: " + ws.readyState);
-                                // if (ws.readyState === 3) {
-                                //     logger.debug("closing ws");
-                                //     return ws.terminate();
-                                // }
-
-                                ws.isAlive = false;
-                                ws.ping('', false, true);
-                                ws.send(JSON.stringify(data));
-                            });
-                        });
+                        var o = new Claymore(r, rig.no, miner, config.refreshMs, wss)
                         rigObj.push(o);
                     }
                 }

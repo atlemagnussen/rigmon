@@ -15,6 +15,7 @@ if (config.rigs) {
         if(config.rigs.hasOwnProperty(r)) {
             rigs++;
             let rig = config.rigs[r];
+            rig.no = rigs;
             if (rig.miners && Array.isArray(rig.miners)) {
                 miners += rig.miners.length;
             }
