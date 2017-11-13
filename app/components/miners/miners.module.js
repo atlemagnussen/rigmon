@@ -1,5 +1,5 @@
 (function(angular) {
 
-    angular.module('minersModule');
+    angular.module('minersModule', []);
 
 })(window.angular);

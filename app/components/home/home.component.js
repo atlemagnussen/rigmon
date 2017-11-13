@@ -1,3 +1,4 @@
+(function(angular) {
 angular.module('homeModule').component('homeView', { // jshint ignore:line
     templateUrl: 'components/home/home.html',
     controller: ['$routeParams', function() {
@@ -71,3 +72,4 @@ angular.module('homeModule').component('homeView', { // jshint ignore:line
         }
     }]
 });
+})(window.angular);

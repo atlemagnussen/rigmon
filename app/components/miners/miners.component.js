@@ -1,4 +1,5 @@
-angular.module('minersModule').component("miners", { // jshint ignore:line
+(function(angular) {
+angular.module('minersModule').component("miners", { 
     template: '<p>{{$ctrl.miners}}</p>',
     bindings: {
         miners: '<'
@@ -7,3 +8,4 @@ angular.module('minersModule').component("miners", { // jshint ignore:line
 
     }
 });
+})(window.angular);
