@@ -1,5 +1,4 @@
-(function(angular) {
-angular.module('homeModule').component('homeView', {
+angular.module('homeModule').component('homeView', { // jshint ignore:line
     templateUrl: 'components/home/home.html',
     controller: ['$routeParams', function() {
         var items = [];
@@ -17,7 +16,7 @@ angular.module('homeModule').component('homeView', {
         };
 
         this.setNewRigData = function(d) {
-            var its = angular.copy(this.items);
+            var its = angular.copy(this.items); // jshint ignore:line
             var current = its.find(function(i) { return i.id === d.id; });
             if (!current) {
                 its.push(d);
@@ -71,18 +70,4 @@ angular.module('homeModule').component('homeView', {
             textAreaOutput.scrollTop = textAreaOutput.scrollHeight;
         }
     }]
-})
-.component("miners", {
-    template: '<p>{{$ctrl.miners}}</p>',
-    bindings: {
-        miners: '<'
-    },
-    controller: function(){
-        var ctrl = this;
-
-        ctrl.update = function(prop, value) {
-            ctrl.onUpdate({miners: ctrl.miners, prop: prop, value: value});
-        };
-    }
 });
-})(window.angular);
