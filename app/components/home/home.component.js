@@ -20,11 +20,11 @@ angular.module('homeModule').component('homeView', {
             var its = angular.copy(this.items);
             var current = its.find(function(i) { return i.id === d.id; });
             if (!current) {
-                its.items.push(d);
+                its.push(d);
             } else {
                 var index = its.indexOf(current);
-                its.items.splice(index, 1);
-                its.items.push(d);
+                its.splice(index, 1);
+                its.push(d);
             }
             this.items = its;
         };
