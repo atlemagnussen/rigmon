@@ -50,6 +50,10 @@ angular.module('homeModule').component('homeView', {
             }
         };
 
+        this.setNewRigData = function(d) {
+            this.miners[d.id] = angular.copy(d);
+	};
+
         let ws;
         this.initWs = function() {
             if (!ws || ws.readyState === ws.CLOSED) {
@@ -67,9 +71,8 @@ angular.module('homeModule').component('homeView', {
                     // showMessage(msg.data);
                     try {
                         var d = JSON.parse(msg.data);
-                        this.miners[d.id] = angular.copy(d);
+                        this.setNewRigData(d);
                         showMessage(d.id + " update received");
-                        this.$doCheck();
                     } catch(e) {
                         showMessage(msg.data);
                     }
