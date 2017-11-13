@@ -14,6 +14,9 @@ angular.module('homeModule').component('homeView', { // jshint ignore:line
         });
 
         this.$onInit = function() {
+            // test data
+            // this.items.push({id:"hey1"});
+            // this.items.push({id:"hey2"});
         };
 
         this.setNewRigData = function(d) {
