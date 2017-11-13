@@ -14,53 +14,19 @@ angular.module('homeModule').component('homeView', {
         });
 
         this.$onInit = function() {
-            this.items.rig2 = {
-                "version": "12.6 - ZEC",
-                "runningMinutes": "11929",
-                "totalHash": "1133;50437;185",
-                "detailHash": [
-                    "290",
-                    "280",
-                    "281",
-                    "281"
-                ],
-                "totalHashSecondary": "0;0;0",
-                "detailHashSecondary": [
-                    "off",
-                    "off",
-                    "off",
-                    "off"
-                ],
-                "tempSpeed": [
-                    "78",
-                    "22",
-                    "80",
-                    "22",
-                    "81",
-                    "22",
-                    "82",
-                    "42"
-                ],
-                "miningPool": "eu.zenmine.pro:9999",
-                "invalidShares": [
-                    "0",
-                    "515",
-                    "0",
-                    "0"
-                ]
-            };
         };
 
         this.setNewRigData = function(d) {
             var its = angular.copy(this.items);
             var current = its.find(function(i) { return i.id === d.id; });
             if (!current) {
-                this.items.push(d);
+                its.items.push(d);
             } else {
                 var index = its.indexOf(current);
-                this.items.splice(index, 1);
-                this.items.push(d);
+                its.items.splice(index, 1);
+                its.items.push(d);
             }
+            this.items = its;
         };
 
         let ws;
