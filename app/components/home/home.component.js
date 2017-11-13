@@ -42,7 +42,7 @@ angular.module('homeModule').component('homeView', {
             };
         };
 
-        let previousValue;
+        let previousValue = this.miners;
         this.$doCheck = function(){
             if(!angular.equals(previousValue, this.miners)){
                 previousValue = this.miners;
