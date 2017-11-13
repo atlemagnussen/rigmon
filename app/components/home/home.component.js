@@ -52,8 +52,10 @@ angular.module('homeModule').component('homeView', {
         };
 
         this.setNewRigData = function(d) {
-            this.items[d.id] = angular.copy(d);
-	       };
+            var i = angular.copy(this.items);
+            i[d.id] = d;
+            this.items = i;
+        };
 
         let ws;
         this.initWs = function() {
