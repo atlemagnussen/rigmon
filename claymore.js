@@ -25,11 +25,12 @@ class Claymore extends Rpc.Tcp {
     transform(data) {
         var result = data[this.rigName].result;
         var standard = {
+            id: this.rigName,
             version: result[0],
             runningMinutes: result[1],
-            totalHash: result[2],
+            totalHash: result[2].split(';'),
             detailHash: result[3].split(';'),
-            totalHashSecondary: result[4],
+            totalHashSecondary: result[4].split(';'),
             detailHashSecondary: result[5].split(';'),
             tempSpeed: result[6].split(';'),
             miningPool: result[7],

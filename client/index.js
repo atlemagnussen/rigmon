@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function showMessage(msg) {
         textAreaOutput.value += "\n" + msg;
-        textAreaOutput.scrollTop = textAreaOutput.scrollHeight
+        textAreaOutput.scrollTop = textAreaOutput.scrollHeight;
     }
     let ws;
     function initWs() {

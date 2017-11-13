@@ -1,0 +1,16 @@
+<div class="flex-container" binding="$ctrl.miners">
+    <div class='column'>
+      <miners value="$ctrl.miners"></miners>
+        <!-- <div></div>
+        <p ng-repeat="(key, m) in $ctrl.miners track by key">{{key}} - {{m.version}} - running for {{m.runningMinutes}}<br/>
+          total {{m.totalHash}} - on {{m.miningPool}}</p> -->
+    </div>
+    <div class='column'>
+        <!-- <p>m.detailHash - m.tempSpeed - m.invalidShares</p> -->
+    </div>
+    <div class="menucolumn">
+        <button id="btnConnect" ng-click="$ctrl.initWs()">Connect</button>
+        <button id="btnDisconnect" ng-click="$ctrl.disconnectWs()">Disconnect</button>
+        <button id="btnRefresh">Test rest</button>
+    </div>
+</div>

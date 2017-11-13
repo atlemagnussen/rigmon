@@ -6,19 +6,20 @@ const path = require('path');
 const express = require('express');
 const http = require('http');
 const url = require('url');
-const WebSocket = require('ws');
+const ws = require('ws');
 const Claymore = require('./claymore.js');
 
 // static server
 const app = express();
 var router = express.Router();
-app.use(express.static(path.join(__dirname, 'client')));
+app.use(express.static(path.join(__dirname, 'app')));
 app.get('/', function(req, res) {
-  res.sendfile(__dirname + './client/index.html');
+    logger.debug("sending app index.html");
+    res.sendfile(__dirname + './app/index.html');
 });
 const server = http.createServer(app);
 // web socket
-const wss = new WebSocket.Server({ server });
+const wss = new ws.Server({ server });
 wss.on('connection', function connection(ws, req) {
     const location = url.parse(req.url, true);
     logger.debug("location: " + JSON.stringify(location));
@@ -38,7 +39,7 @@ if (config.rigs) {
                 for(var i=0; i<rig.miners.length; i++) {
                     var miner = rig.miners[i];
                     if (miner.type === "claymore") {
-                        var o = new Claymore(r, rig.no, miner, config.refreshMs, wss)
+                        var o = new Claymore(r, rig.no, miner, config.refreshMs, wss);
                         rigObj.push(o);
                     }
                 }

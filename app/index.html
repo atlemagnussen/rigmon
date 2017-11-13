@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+    <title>Rigmon</title>
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="prism.css">
+    <link rel="stylesheet" href="components/menu/menu.css">
+    <link rel="stylesheet" href="components/home/home.css">
+
+    <script src="prism.js"></script>
+    <script src="angular.min.js"></script>
+    <script src="angular-route.min.js"></script>
+    <script src="angular-animate.min.js"></script>
+    <script src="app.module.js"></script>
+    <script src="app.config.js"></script>
+    <script src="components/menu/menu.module.js"></script>
+    <script src="components/menu/menu.component.js"></script>
+    <script src="components/home/home.module.js"></script>
+    <script src="components/home/home.component.js"></script>
+    <script src="components/about/about.module.js"></script>
+    <script src="components/about/about.component.js"></script>
+</head>
+<body>
+    <div class="content">
+        <div class="upper-container">
+            <span id="version" class="small">v0.0.0</span>
+            <h1>Rigmon</h1>
+            <div ng-view></div>
+        </div>
+        <div class="lower-container">
+            <div class="full">
+                <textarea id="output" class="outputcommands" rows="25"></textarea>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+{
+    "version": "12.6 - ZEC",
+    "runningMinutes": "11929",
+    "totalHash": "1133;50437;185",
+    "detailHash": [
+        "290",
+        "280",
+        "281",
+        "281"
+    ],
+    "totalHashSecondary": "0;0;0",
+    "detailHashSecondary": [
+        "off",
+        "off",
+        "off",
+        "off"
+    ],
+    "tempSpeed": [
+        "78",
+        "22",
+        "80",
+        "22",
+        "81",
+        "22",
+        "82",
+        "42"
+    ],
+    "miningPool": "eu.zenmine.pro:9999",
+    "invalidShares": [
+        "0",
+        "515",
+        "0",
+        "0"
+    ]
+}
+{
+    "version": "12.6 - ZEC",
+    "runningMinutes": "8721",
+    "totalHash": "561;18429;46",
+    "detailHash": [
+        "281",
+        "280"
+    ],
+    "totalHashSecondary": "0;0;0",
+    "detailHashSecondary": [
+        "off",
+        "off"
+    ],
+    "tempSpeed": [
+        "79",
+        "33"
+    ],
+    "miningPool": "eu.zenmine.pro:9999",
+    "invalidShares": [
+        "0",
+        "384",
+        "0",
+        "0"
+    ]
+}

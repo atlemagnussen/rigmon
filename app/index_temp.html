@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html ng-app="app">
+    <head>
+        <meta charset="UTF-8">
+        <title>Hello</title>
+        <link rel="stylesheet" href="app.css">
+        <link rel="stylesheet" href="prism.css">
+        <link rel="stylesheet" href="components/menu/menu.css">
+        <link rel="stylesheet" href="components/home/home.css">
+
+        <script src="prism.js"></script>
+        <script src="angular.js"></script>
+        <script src="angular-route.js"></script>
+        <script src="angular-animate.js"></script>
+        <script src="app.module.js"></script>
+        <script src="app.config.js"></script>
+        <script src="components/menu/menu.module.js"></script>
+        <script src="components/menu/menu.component.js"></script>
+        <script src="components/home/home.module.js"></script>
+        <script src="components/home/home.component.js"></script>
+        <script src="components/about/about.module.js"></script>
+        <script src="components/about/about.component.js"></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="menu">
+                <ul class="menu-list">
+                    <li><a href="#!/home">home</a></li>
+                    <li><a href="#!/about">about</a></li>
+                    <li id="new-window"><a>Window</a></li>
+                    <li id="frameless-window"><a>Window II</a></li>
+                </ul>
+            </div>
+            <div ng-view></div>
+        </div>
+    </body>
+    <script>
+        require('./renderer.js')
+        const fs = require('fs')
+        const path = require('path')
+        let mainJsPath = path.join(__dirname, "../main.js")
+        var mainJsContent = fs.readFileSync(mainJsPath);
+        let packageJsonPath = path.join(__dirname, "../package.json")
+        var packageJsonContent = fs.readFileSync(packageJsonPath);
+    </script>
+</html>

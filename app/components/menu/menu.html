@@ -1,0 +1,5 @@
+<div class="menu">
+    <ul class="menu-list">
+        <li ng-repeat="item in $ctrl.menuItems" ng-class="$ctrl.getIsActive($index) ? 'active' : ''" ng-click="$ctrl.setActive($index)"><a href="#!/{{item}}">{{item}}</a></li>
+    </ul>
+</div>

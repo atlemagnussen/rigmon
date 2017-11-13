@@ -23,6 +23,9 @@
   },
   "homepage": "https://github.com/atlemagnussen/attz-minermon#readme",
   "dependencies": {
+    "angular": "^1.6.6",
+    "angular-animate": "^1.6.6",
+    "angular-route": "^1.6.6",
     "bufferutil": "3.0.3",
     "express": "^4.16.2",
     "log4js": "^2.3.11",
