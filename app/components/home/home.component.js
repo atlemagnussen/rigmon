@@ -5,7 +5,7 @@ angular.module('homeModule').component('homeView', {
 
         this.$onInit = function() {
             this.miners = {};
-            this.miners["rig2"] = {
+            this.miners.rig2 = {
                 "version": "12.6 - ZEC",
                 "runningMinutes": "11929",
                 "totalHash": "1133;50437;185",
@@ -98,25 +98,17 @@ angular.module('homeModule').component('homeView', {
     }]
 })
 .component("miners", {
-    template: `{{$ctrl.value}}`,
-    bindings: {
-       value: "<"
+    template: '<p>{{$ctrl.model}}</p>',
+    require: {
+        ngModel: '^ngModel'
     },
     controller: function(){
-       function setType() {
-          console.log("called");
-       }
-       this.$onInit = setType;
-       this.$onChanges = function(changeObj){
-           console.log("changed value",changeObj.value.currentValue);
-       };
-       var previousValue;
-       this.$doCheck = function(){
-           if(!angular.equals(previousValue, this.value)){
-               previousValue = this.previousValue;
-               this.value = angular.copy(this.value);
-           }
-       };
-   }
+        var self = this;
+        this.$onInit = () => {
+            this.ngModel.$render = () => {
+                self.model = self.ngModel.$viewValue;
+            };
+        };
+    }
 });
 })(window.angular);
