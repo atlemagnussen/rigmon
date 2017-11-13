@@ -1,7 +1,7 @@
 (function(angular) {
 angular.module('homeModule').component('homeView', {
     templateUrl: 'components/home/home.html',
-    controller: ['$routeParams', function() {
+    controller: ['$routeParams', function($scope) {
         var items = {};
         Object.defineProperty(this, 'items', {
             get: function() {
@@ -9,11 +9,18 @@ angular.module('homeModule').component('homeView', {
             },
             set: function(newVal) {
                 items = newVal;
-                console.log('Items changed:', newVal);
+                console.log('setter');
             }
         });
 
         this.$onInit = function() {
+            this._scope.$watch(() => {
+                return this.items;
+            },
+            (newVal, oldVal) => {
+                console.log("$watch is here");
+            });
+
             this.items.rig2 = {
                 "version": "12.6 - ZEC",
                 "runningMinutes": "11929",
