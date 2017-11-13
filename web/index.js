@@ -8,14 +8,10 @@ document.addEventListener("DOMContentLoaded", function() {
     var textAreaOutput = document.getElementById("output");
     var minersEl = document.getElementById("miners");
     btnConnect.addEventListener("click", function() {
-        initWs();
+
     });
     btnDisconnect.addEventListener("click", function() {
-        if (ws && ws.readyState === ws.OPEN) {
-            ws.close();
-        } else {
-            showMessage("web socket is not open. readyState=" + ws.readyState);
-        }
+
     });
     btnRefresh.addEventListener("click", function() {
         rest.call("GET", "api")
@@ -26,27 +22,19 @@ document.addEventListener("DOMContentLoaded", function() {
         textAreaOutput.value += "\n" + msg;
         textAreaOutput.scrollTop = textAreaOutput.scrollHeight;
     }
-    let ws;
-    function initWs() {
-        if (!ws || ws.readyState === ws.CLOSED) {
-        ws = new WebSocket(`ws://${location.host}`);
-            ws.onerror = () => {
-                showMessage('WebSocket error');
-            };
-            ws.onopen = () => {
-                showMessage('WebSocket connection established');
-            };
-            ws.onclose = () => {
-                showMessage('WebSocket connection closed');
-            };
-            ws.onmessage = (msg) => {
-                minersEl.setAttribute('miners', msg.data);
-            };
-        } else {
-            showMessage("web socket is already open. readyState=" + ws.readyState);
-        }
+
+    var w;
+    if(typeof(w) === "undefined") {
+        w = new Worker("miner.worker.js");
     }
-    // setTimeout(initWs, 2000);
+    w.onmessage = function(event){
+        if (event.data && Array.isArray(event.data)) {
+            minersEl.setAttribute("miners", JSON.stringify(event.data));
+        } else {
+            showMessage(event.data);
+        }
+    };
+    w.postMessage('connect');
 
     var loaded = "Loaded client " + new Date();
     showMessage(loaded);

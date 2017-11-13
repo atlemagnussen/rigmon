@@ -5,48 +5,56 @@ class Miners extends HTMLElement {
     constructor() {
         super();
         this.miners = [];
+        this.minersElements = [];
+
+        let shadowRoot = this.attachShadow({mode: 'open'});
+        shadowRoot.innerHTML = `
+        <div id="miners">
+        </div>
+        `;
     }
     static get observedAttributes() {return ['miners']; }
+
     connectedCallback() {
         console.log("connected");
-        this.paragraph = document.createElement('p');
-
-        this.miners = this.getAttribute('miners');
-
-        //var shadow = this.createShadowRoot();
-
+        this.minersDiv = this.shadowRoot.querySelector('#miners');
         this.update();
-
-        this.appendChild(this.paragraph);
     }
 
-    attributeChangedCallback(attributeName, oldValue, newValue, namespace) {
+    attributeChangedCallback(attributeName, oldValue, newValue) {
         if (attributeName === 'miners') {
-            this.miners = newValue;
+            try {
+                var obj = JSON.parse(newValue);
+                this.miners = obj;
+                this.update();
+            } catch (e) {
+                console.log(newValue);
+            }
+
         }
-        this.update();
     }
     update() {
-        this.paragraph.innerHTML = this.miners;
+        if (!this.miners || this.miners.length===0) {
+            return;
+        }
+        for(var i=0; i<this.miners.length; i++) {
+            var miner = this.miners[i];
+            var elo = this.minersElements.find(function(e) { return e.id === miner.id; }); // jshint ignore:line
+            if (!elo) {
+                let newEl = document.createElement('rig-miner');
+                var elObj = {
+                    id: miner.id,
+                    element: newEl
+                };
+                this.minersElements.push(elObj);
+                newEl.setAttribute('miner', JSON.stringify(miner));
+                this.minersDiv.appendChild(newEl);
+            } else {
+                var el = elo.element;
+                el.setAttribute('miner', JSON.stringify(miner));
+            }
+        }
+
     }
 }
-customElements.define('my-miners', Miners);
-
-
-//document.addEventListener("DOMContentLoaded", function(event) {
-    // var w;
-    // if(typeof(w) == "undefined") {
-    //     w = new Worker("js/webworker.js");
-    // }
-    // w.onmessage = function(event){
-    //     document.getElementById("myAvatar").setAttribute("username", event.data);
-    // };
-    //
-    // document.getElementById('selectService').addEventListener('change', function() {
-    //     document.getElementById("myAvatar").setAttribute("service", document.getElementById('selectService').value);
-    // });
-    //
-    // document.getElementById('btnStop').addEventListener('click', function() {
-    //     w.postMessage("kill");
-    // });
-//});
+customElements.define('my-miners', Miners); // jshint ignore:line
