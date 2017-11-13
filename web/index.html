@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+    <title>Rigmon</title>
+</head>
+<body>
+    <div class="content">
+        <div class="upper-container">
+            <span id="version" class="small">v0.0.0</span>
+            <h1>Rigmon</h1>
+            <div class="flex-container">
+                <my-miners id="miners" miners="none loaded"></my-miners>
+                <div class="menucolumn">
+                    <button id="btnConnect">Connect</button>
+                    <button id="btnDisconnect">Disconnect</button>
+                    <button id="btnRefresh">Test rest</button>
+                </div>
+            </div>
+        </div>
+        <div class="lower-container">
+            <div class="full">
+                <textarea id="output" class="outputcommands" rows="25"></textarea>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="index.js"></script>
+<script src="miners.js"></script>
+<script src="rest.js"></script>
+</html>

@@ -12,11 +12,7 @@ const Claymore = require('./claymore.js');
 // static server
 const app = express();
 var router = express.Router();
-app.use(express.static(path.join(__dirname, 'app')));
-app.get('/', function(req, res) {
-    logger.debug("sending app index.html");
-    res.sendfile(__dirname + './app/index.html');
-});
+app.use(express.static(path.join(__dirname, 'web')));
 const server = http.createServer(app);
 // web socket
 const wss = new ws.Server({ server });
