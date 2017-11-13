@@ -2,14 +2,19 @@
 angular.module('homeModule').component('homeView', {
     templateUrl: 'components/home/home.html',
     controller: ['$routeParams', function() {
+        var items = {};
+        Object.defineProperty(this, 'items', {
+            get: function() {
+                return items;
+            },
+            set: function(newVal) {
+                items = newVal;
+                console.log('Items changed:', newVal);
+            }
+        });
 
         this.$onInit = function() {
-            this._scope.$watch(() => { return this.miners; }, (newVal, oldVal) =>
-            {
-                console.log("change" + newVal + " - " + oldVal);
-            });
-            this.miners = {};
-            this.miners.rig2 = {
+            this.items.rig2 = {
                 "version": "12.6 - ZEC",
                 "runningMinutes": "11929",
                 "totalHash": "1133;50437;185",
@@ -46,17 +51,9 @@ angular.module('homeModule').component('homeView', {
             };
         };
 
-        let previousValue = this.miners;
-        this.$doCheck = function(){
-            if(!angular.equals(previousValue, this.miners)){
-                previousValue = this.miners;
-                this.miners = angular.copy(this.miners);
-            }
-        };
-
         this.setNewRigData = function(d) {
-            this.miners[d.id] = angular.copy(d);
-	};
+            this.items[d.id] = angular.copy(d);
+	       };
 
         let ws;
         this.initWs = function() {
