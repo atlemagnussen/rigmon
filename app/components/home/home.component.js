@@ -4,6 +4,10 @@ angular.module('homeModule').component('homeView', {
     controller: ['$routeParams', function() {
 
         this.$onInit = function() {
+            this._scope.$watch(() => { return this.miners; }, (newVal, oldVal) =>
+            {
+                console.log("change" + newVal + " - " + oldVal);
+            });
             this.miners = {};
             this.miners.rig2 = {
                 "version": "12.6 - ZEC",
@@ -103,7 +107,7 @@ angular.module('homeModule').component('homeView', {
         miners: '='
     },
     controller: function(){
-        
+
     }
 });
 })(window.angular);
