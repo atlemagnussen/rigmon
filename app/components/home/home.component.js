@@ -98,17 +98,12 @@ angular.module('homeModule').component('homeView', {
     }]
 })
 .component("miners", {
-    template: '<p>{{$ctrl.model}}</p>',
-    require: {
-        ngModel: '^ngModel'
+    template: '<p>{{$ctrl.miners}}</p>',
+    bindings: {
+        miners: '='
     },
     controller: function(){
-        var self = this;
-        this.$onInit = () => {
-            this.ngModel.$render = () => {
-                self.model = self.ngModel.$viewValue;
-            };
-        };
+        
     }
 });
 })(window.angular);
