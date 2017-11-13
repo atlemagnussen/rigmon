@@ -1,8 +1,8 @@
 (function(angular) {
 angular.module('homeModule').component('homeView', {
     templateUrl: 'components/home/home.html',
-    controller: ['$routeParams', function($scope) {
-        var items = {};
+    controller: ['$routeParams', function() {
+        var items = [];
         Object.defineProperty(this, 'items', {
             get: function() {
                 return items;
@@ -14,13 +14,6 @@ angular.module('homeModule').component('homeView', {
         });
 
         this.$onInit = function() {
-            this._scope.$watch(() => {
-                return this.items;
-            },
-            (newVal, oldVal) => {
-                console.log("$watch is here");
-            });
-
             this.items.rig2 = {
                 "version": "12.6 - ZEC",
                 "runningMinutes": "11929",
@@ -59,9 +52,15 @@ angular.module('homeModule').component('homeView', {
         };
 
         this.setNewRigData = function(d) {
-            var i = angular.copy(this.items);
-            i[d.id] = d;
-            this.items = i;
+            var its = angular.copy(this.items);
+            var current = its.find(function(i) { return i.id === d.id; });
+            if (!current) {
+                this.items.push(d);
+            } else {
+                var index = its.indexOf(current);
+                this.items.splice(index, 1);
+                this.items.push(d);
+            }
         };
 
         let ws;
@@ -110,10 +109,14 @@ angular.module('homeModule').component('homeView', {
 .component("miners", {
     template: '<p>{{$ctrl.miners}}</p>',
     bindings: {
-        miners: '='
+        miners: '<'
     },
     controller: function(){
+        var ctrl = this;
 
+        ctrl.update = function(prop, value) {
+            ctrl.onUpdate({miners: ctrl.miners, prop: prop, value: value});
+        };
     }
 });
 })(window.angular);
