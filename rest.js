@@ -3,8 +3,8 @@ var http = require('http');
 var Rig = require('./rig.js');
 
 class Rest extends Rig {
-    constructor(rigName, rigNo, config, request, refreshMs) {
-        super(rigName, rigNo, refreshMs);
+    constructor(rigName, config, request, refreshMs) {
+        super(rigName, config.no, refreshMs);
         this.on('refresh', (id) => {
             logger.debug(`Refresh ${id}`);
             this.get();

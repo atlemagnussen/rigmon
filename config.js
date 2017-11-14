@@ -14,10 +14,13 @@ if (config.rigs) {
         if(config.rigs.hasOwnProperty(r)) {
             rigs++;
             let rig = config.rigs[r];
+            logger.info("rig:" + r);
             if (rig.miners && Array.isArray(rig.miners)) {
                 miners += rig.miners.length;
                 for(var i=0;i<rig.miners.length;i++) {
-                    rig.no = i+1;
+                    let miner = rig.miners[i];
+                    miner.no = i+1;
+                    logger.info("miner: " + miner.no);
                 }
             }
         }

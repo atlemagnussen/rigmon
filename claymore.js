@@ -4,14 +4,14 @@ var moment = require('moment');
 require("moment-duration-format");
 
 class Claymore extends Rpc.Tcp {
-    constructor(rigName, rigNo, config, refreshMs, wss) {
+    constructor(rigName, config, refreshMs, wss) {
         var request = JSON.stringify({
-                        "id": rigNo,
+                        "id": config.no,
                         "jsonrpc":"2.0",
                         "method":"miner_getstat1"
                     });
         logger.trace(request);
-        super(rigName, rigNo, config, request, refreshMs);
+        super(rigName, config, request, refreshMs);
         this.wss = wss;
         this.on('data', (data) => {
             var d = this.transform(data);

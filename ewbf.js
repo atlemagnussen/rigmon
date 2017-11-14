@@ -4,10 +4,10 @@ var moment = require('moment');
 require("moment-duration-format");
 
 class Ewbf extends Rest {
-    constructor(rigName, rigNo, config, refreshMs, wss) {
+    constructor(rigName, config, refreshMs, wss) {
         var request = "getstat";
         logger.trace(request);
-        super(rigName, rigNo, config, request, refreshMs);
+        super(rigName, config, request, refreshMs);
         this.wss = wss;
         this.on('data', (data) => {
             var d = this.transform(data);
