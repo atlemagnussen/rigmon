@@ -24,13 +24,20 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
     btnRefresh.addEventListener("click", function() {
-        rest.call("GET", "api")
+        rest.call("GET", "api/config")
         .then(showMessage, showMessage);
     });
 
     function showMessage(msg) {
         textAreaOutput.value += "\n" + msg;
         textAreaOutput.scrollTop = textAreaOutput.scrollHeight;
+    }
+
+    function initMiners() {
+        rest.call("GET", "api/config")
+        .then(function(config) {
+            var confString = JSON.stringify(config);
+        }, showMessage);
     }
 
     if(typeof(w) === "undefined") {

@@ -11,7 +11,7 @@ class Ewbf extends Rest {
         this.wss = wss;
         this.on('data', (data) => {
             var d = this.transform(data);
-            logger.debug(d);
+            logger.trace(d);
             if (this.wss) {
                 logger.debug("clients: " + this.wss.clients.size);
                 this.wss.clients.forEach(function each(ws) {

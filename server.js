@@ -51,7 +51,11 @@ if (config.rigs) {
 
 // api
 router.get('/', function (req, res) {
-    res.json({ message: 'no rigs!! Need some websocket here right' });
+    res.json({ message: 'This is the api' });
+});
+
+router.get('/config', function (req, res) {
+    res.json(config);
 });
 
 app.use('/api', router);

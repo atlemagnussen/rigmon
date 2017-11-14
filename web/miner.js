@@ -10,6 +10,11 @@ class Miner extends HTMLElement {
         shadowRoot.innerHTML = `
         <div id="miner">
         </div>
+        <style>
+            #miner {
+                border-style: ridge;
+            }
+        </style>
         `;
     }
     static get observedAttributes() {return ['miner']; }

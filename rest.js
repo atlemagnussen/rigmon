@@ -40,7 +40,7 @@ class Rest extends Rig {
             res.on('end', () => {
                 try {
                     const parsedData = JSON.parse(rawData);
-                    logger.debug(parsedData);
+                    logger.trace(parsedData);
                     logger.trace("Http Data arrived");
                     this.emit('data', parsedData);
                 } catch (e) {
