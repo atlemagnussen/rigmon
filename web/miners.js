@@ -9,8 +9,8 @@ class Miners extends HTMLElement {
 
         let shadowRoot = this.attachShadow({mode: 'open'});
         shadowRoot.innerHTML = `
-        <div id="miners">
-        </div>
+        <div id="miners"></div>
+        <div id="total"></div>
         `;
     }
     static get observedAttributes() {return ['miners']; }
@@ -18,6 +18,7 @@ class Miners extends HTMLElement {
     connectedCallback() {
         console.log("connected");
         this.minersDiv = this.shadowRoot.querySelector('#miners');
+        this.totalDiv = this.shadowRoot.querySelector('#miners');
         this.update();
     }
 
@@ -37,8 +38,13 @@ class Miners extends HTMLElement {
         if (!this.miners || this.miners.length===0) {
             return;
         }
+        var totalAll = {
+            hashRate: 0,
+            unit: "H/s"
+        };
         for(var i=0; i<this.miners.length; i++) {
             var miner = this.miners[i];
+            totalAll.hashRate += miner.total.hashRate;
             var elo = this.minersElements.find(function(e) { return e.id === miner.id; }); // jshint ignore:line
             if (!elo) {
                 let newEl = document.createElement('rig-miner');
@@ -54,7 +60,7 @@ class Miners extends HTMLElement {
                 el.setAttribute('miner', JSON.stringify(miner));
             }
         }
-
+        this.totalDiv.innerHTML = `Total hashrate all rigs <span class="bold">${totalAll.hashRate} ${totalAll.unit}</span>`;
     }
 }
 customElements.define('my-miners', Miners); // jshint ignore:line

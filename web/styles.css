@@ -108,6 +108,9 @@ input[type="number"]  {
 .small {
     font-size: 70%
 }
+.bold {
+    font-weight: bold;
+}
 #query {
     width: 99%;
 }
