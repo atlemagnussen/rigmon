@@ -10,8 +10,7 @@ class Ewbf extends Rest {
         super(rigName, config, request, refreshMs);
         this.wss = wss;
         this.on('data', (data) => {
-            var d = JSON.stringify(data);
-            logger.debug("ewbf data arrived");
+            var d = this.transform(data);
             logger.debug(d);
             // if (this.wss) {
             //     var d = this.transform(data);
