@@ -11,7 +11,7 @@ class Claymore extends Rpc.Tcp {
                         "method":"miner_getstat1"
                     });
         logger.trace(request);
-        super(rigName, config, request, refreshMs);
+        super(rigName, rigNo, config, request, refreshMs);
         this.wss = wss;
         this.on('data', (data) => {
             if (this.wss) {
@@ -29,7 +29,7 @@ class Claymore extends Rpc.Tcp {
         var result = data.result;
         var totals = result[2].split(';');
         var standard = {
-            id: this.rigName,
+            id: this.rigUniqueId,
             unit: this.config.unit,
             version: result[0],
             uptime: moment.duration(parseInt(result[1]), 'minutes').format('d [days,] hh:mm'),

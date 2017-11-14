@@ -2,13 +2,15 @@ const logger = require('./logger.js');
 const EventEmitter = require('events');
 
 class Rig extends EventEmitter {
-    constructor(rigName, refreshMs) {
+    constructor(rigName, rigNo, refreshMs) {
         super();
         if (!rigName) {
             logger.error("no rig name!");
             throw "no rig name!";
         }
         this.rigName = rigName;
+        this.rigNo = rigNo;
+        this.rigUniqueId = `${rigName}-${rigNo}`;
         if (isNaN(refreshMs)) {
             logger.error(`'${refreshMs}' is not an integer`);
             refreshMs = 5000;
@@ -19,7 +21,7 @@ class Rig extends EventEmitter {
         }, this.refreshMsh);
     }
     refresh() {
-        this.emit('refresh', this.rigName);
+        this.emit('refresh', this.rigUniqueId);
     }
 }
 

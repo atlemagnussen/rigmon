@@ -3,10 +3,10 @@ var net = require('net');
 var Rig = require('./rig.js');
 
 class Tcp extends Rig{
-    constructor(rigName, config, req, refreshMs) {
-        super(rigName, refreshMs);
-        this.on('refresh', (name) => {
-            logger.debug(`Refresh ${name}`);
+    constructor(rigName, rigNo, config, req, refreshMs) {
+        super(rigName, rigNo, refreshMs);
+        this.on('refresh', (id) => {
+            logger.debug(`Refresh ${id}`);
             this.connect();
         });
         this.config = config;

@@ -7,7 +7,7 @@ class Ewbf extends Rest {
     constructor(rigName, rigNo, config, refreshMs, wss) {
         var request = "getstat";
         logger.debug(request);
-        super(rigName, config, request, refreshMs);
+        super(rigName, rigNo, config, request, refreshMs);
         this.wss = wss;
         this.on('data', (data) => {
             var d = this.transform(data);
@@ -29,7 +29,7 @@ class Ewbf extends Rest {
         var units = data.result;
 
         var standard = {
-            id: this.rigName,
+            id: this.rigUniqueId,
             unit: this.config.unit,
             version: "EWFB Zec miner",
             uptime: moment.duration(parseInt(seconds), 'seconds').format('d [days,] hh:mm'),
