@@ -14,9 +14,9 @@ class Claymore extends Rpc.Tcp {
         super(rigName, rigNo, config, request, refreshMs);
         this.wss = wss;
         this.on('data', (data) => {
+            var d = this.transform(data);
+            logger.debug(d);
             if (this.wss) {
-                var d = this.transform(data);
-                logger.debug(d);
                 logger.debug("clients: " + this.wss.clients.size);
                 this.wss.clients.forEach(function each(ws) {
                     logger.debug("ws.readyState: " + ws.readyState);

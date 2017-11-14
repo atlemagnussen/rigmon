@@ -12,14 +12,13 @@ class Ewbf extends Rest {
         this.on('data', (data) => {
             var d = this.transform(data);
             logger.debug(d);
-            // if (this.wss) {
-            //     var d = this.transform(data);
-            //     logger.debug("clients: " + this.wss.clients.size);
-            //     this.wss.clients.forEach(function each(ws) {
-            //         logger.debug("ws.readyState: " + ws.readyState);
-            //         ws.send(d);
-            //     });
-            // }
+            if (this.wss) {
+                logger.debug("clients: " + this.wss.clients.size);
+                this.wss.clients.forEach(function each(ws) {
+                    logger.debug("ws.readyState: " + ws.readyState);
+                    ws.send(d);
+                });
+            }
         });
     }
     transform(data) {
