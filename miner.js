@@ -21,7 +21,7 @@ class Miner extends EventEmitter {
         }, this.refreshMsh);
         this.on('data', (data) => {
             var minerData = this.formatter(data);
-            logger.debug(minerData);
+            logger.trace(minerData);
             if (this.wss) {
                 logger.trace("clients: " + this.wss.clients.size);
                 this.wss.clients.forEach(function each(ws) {
