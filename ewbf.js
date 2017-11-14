@@ -23,16 +23,32 @@ class Ewbf extends Rest {
         });
     }
     transform(data) {
-        var result = data.result;
         var startDate = new Date(data.start_time*1000);
         var diff = Math.abs(new Date() - startDate);
         var seconds = Math.floor((diff/1000));
+        var units = data.result;
+
         var standard = {
             id: this.rigName,
+            unit: this.config.unit,
             version: "EWFB Zec miner",
-            uptime: moment.duration(parseInt(seconds), 'seconds').format('d [days,] hh:mm')
+            uptime: moment.duration(parseInt(seconds), 'seconds').format('d [days,] hh:mm'),
+            total: {
+                hashRate: this.getTotal(units, "speed_sps"),
+                shares: this.getTotal(units, "accepted_shares"),
+                rejected: this.getTotal(units, "rejected_shares")
+            }
         };
         return JSON.stringify(standard, null, 4);
+    }
+    getTotal(units, prop) {
+        var total = 0;
+        if (units && Array.isArray(units)) {
+            units.forEach(function(unit) {
+                total += unit[prop];
+            });
+        }
+        return total;
     }
 }
 

@@ -28,9 +28,10 @@ class Miner extends HTMLElement {
     }
     update() {
         let minersDiv = this.shadowRoot.querySelector('#miner');
-        minersDiv.innerHTML = `<p>${this.miner.id} - ${this.miner.version} - running for ${this.miner.uptime} 
-        total ${this.miner.totalHash} - on ${this.miner.miningPool}</p>
-        <p>${this.miner.detailHash}<br>${this.miner.tempSpeed}<br/>${this.miner.invalidShares}</p>`;
+        let unit = this.miner.unit;
+        minersDiv.innerHTML = `
+        <p>${this.miner.id} - ${this.miner.version} - ${this.miner.miningPool} - running for ${this.miner.uptime}</p>
+        <p>total ${this.miner.total.hashRate}${unit} - ${this.miner.total.shares} shares where ${this.miner.total.rejected} rejected</p>`;
     }
 }
 customElements.define('rig-miner', Miner); // jshint ignore:line

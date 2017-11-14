@@ -9,12 +9,14 @@
                 {
                     "type": "claymore",
                     "host": "57.57.57.6",
-                    "port": 3333
+                    "port": 3333,
+                    "unit": "H/s"
                 },
                 {
                     "type": "ewbf",
                     "host": "57.57.57.6",
-                    "port": 42000
+                    "port": 42000,
+                    "unit": "H/s"
                 }
             ]
         },
@@ -23,7 +25,8 @@
                 {
                     "type": "claymore",
                     "host": "57.57.57.7",
-                    "port": 3333
+                    "port": 3333,
+                    "unit": "H/s"
                 }
             ]
         },
@@ -32,7 +35,8 @@
                 {
                     "type": "ewbf",
                     "host": "57.57.57.8",
-                    "port": 42000
+                    "port": 42000,
+                    "unit": "H/s"
                 }
             ]
         }
