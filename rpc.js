@@ -3,7 +3,7 @@ var net = require('net');
 var Rig = require('./rig.js');
 
 class Tcp extends Rig{
-    constructor(rigName, config, req, refreshMs) {
+    constructor(rigName, config, request, refreshMs) {
         super(rigName, config.no, refreshMs);
         this.on('refresh', (id) => {
             logger.debug(`Refresh ${id}`);
@@ -28,7 +28,7 @@ class Tcp extends Rig{
         })
         .on('connect', function() {
             logger.trace(`: connected to ${this.remoteAddress} ${this.remotePort}`);
-            this.write(req + '\n');
+            this.write(request + '\n');
         });
     }
 

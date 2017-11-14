@@ -37,10 +37,10 @@ if (config.rigs) {
                     var minerConf = rig.miners[i];
                     logger.info(`rig ${r}-${minerConf.no} ${minerConf.type}`);
                     if (minerConf.type === "claymore") {
-                        var o = new Claymore(r, minerConf.no, minerConf, config.refreshMs, wss);
+                        var o = new Claymore(r, minerConf, config.refreshMs, wss);
                         rigObj.push(o);
                     } else if (minerConf.type === "ewbf") {
-                        var ewbfMiner = new Ewbf(r, minerConf.no, minerConf, config.refreshMs, wss);
+                        var ewbfMiner = new Ewbf(r, minerConf, config.refreshMs, wss);
                         rigObj.push(ewbfMiner);
                     }
                 }
