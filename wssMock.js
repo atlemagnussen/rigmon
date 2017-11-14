@@ -1,9 +1,10 @@
 class WssMock {
     constructor() {
-        this.clients = [];
+        this.clients = new Set();
     }
     send() {
         console.log("wss mock send");
     }
 }
 module.exports = WssMock;
+
