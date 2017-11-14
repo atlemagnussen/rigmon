@@ -26,7 +26,7 @@ class Claymore extends Rpc.Tcp {
         });
     }
     transform(data) {
-        var result = data[this.rigName].result;
+        var result = data.result;
         var standard = {
             id: this.rigName,
             version: result[0],

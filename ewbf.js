@@ -23,8 +23,9 @@ class Ewbf extends Rest {
         });
     }
     transform(data) {
-        var result = data[this.rigName].result;
-        var diff = Math.abs(new Date() - new Date(data.start_time*1000));
+        var result = data.result;
+        var startDate = new Date(data.start_time*1000);
+        var diff = Math.abs(new Date() - startDate);
         var seconds = Math.floor((diff/1000));
         var standard = {
             id: this.rigName,

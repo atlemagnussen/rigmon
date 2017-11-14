@@ -13,11 +13,9 @@ class Tcp extends Rig{
 
         this.socket = new net.Socket()
         .on('data', (data) => {
-            var d = JSON.parse(data);
-            var dd = {};
-            dd[rigName] = d;
+            var parsedData = JSON.parse(data);
             logger.trace("Tcp Data arrived");
-            this.emit('data', dd);
+            this.emit('data', parsedData);
         })
         .on('close', function() {
             logger.trace('close');
