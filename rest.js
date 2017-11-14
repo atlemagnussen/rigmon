@@ -1,8 +1,8 @@
 const logger = require('./logger.js');
 var http = require('http');
-var Rig = require('./rig.js');
+var Miner = require('./miner.js');
 
-class Rest extends Rig {
+class Rest extends Miner {
     constructor(rigName, config, request, refreshMs) {
         super(rigName, config.no, refreshMs);
         this.on('refresh', (id) => {

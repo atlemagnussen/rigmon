@@ -1,8 +1,8 @@
 const logger = require('./logger.js');
 var net = require('net');
-var Rig = require('./rig.js');
+var Miner = require('./miner.js');
 
-class Tcp extends Rig{
+class Tcp extends Miner{
     constructor(rigName, config, request, refreshMs) {
         super(rigName, config.no, refreshMs);
         this.on('refresh', (id) => {

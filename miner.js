@@ -1,7 +1,7 @@
 const logger = require('./logger.js');
 const EventEmitter = require('events');
 
-class Rig extends EventEmitter {
+class Miner extends EventEmitter {
     constructor(rigName, rigNo, refreshMs, wss, formatter) {
         super();
         if (!rigName) {
@@ -36,4 +36,4 @@ class Rig extends EventEmitter {
     }
 }
 
-module.exports = Rig;
+module.exports = Miner;
