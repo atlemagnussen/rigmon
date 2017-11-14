@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,24 +8,25 @@
     <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
     <title>Rigmon</title>
 </head>
+
 <body>
     <div class="content">
         <div class="upper-container">
             <span id="version" class="small">v0.0.0</span>
             <h1>Rigmon</h1>
-            <div class="menu">
-                <ul class="menu-list">
-                    <li><button id="btnConnect">Connect</button></li>
-                    <li><button id="btnDisconnect">Disconnect</button></li>
-                    <li><button id="btnRefresh">Test rest</button></li>
-                </ul>
-            </div>
             <div class="flex-container">
                 <my-miners id="miners" miners="none loaded"></my-miners>
             </div>
         </div>
         <div class="lower-container">
             <div class="full">
+                <div class="menu">
+                    <ul class="menu-list">
+                        <li><button id="btnConnect">Connect</button></li>
+                        <li><button id="btnDisconnect">Disconnect</button></li>
+                        <li><button id="btnRefresh">Test rest</button></li>
+                    </ul>
+                </div>
                 <textarea id="output" class="outputcommands" rows="25"></textarea>
             </div>
         </div>
@@ -35,4 +37,5 @@
 <script src="miner.js"></script>
 <script src="miner.worker.js"></script>
 <script src="rest.js"></script>
+
 </html>
