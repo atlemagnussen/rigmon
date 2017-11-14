@@ -32,6 +32,7 @@ class Claymore extends Rpc.Tcp {
             id: this.rigUniqueId,
             unit: this.config.unit,
             version: result[0],
+            miningPool: result[7],
             uptime: moment.duration(parseInt(result[1]), 'minutes').format('d [days,] hh:mm'),
             total: {
                 hashRate: totals[0],
@@ -42,7 +43,6 @@ class Claymore extends Rpc.Tcp {
             totalHashSecondary: result[4].split(';'),
             detailHashSecondary: result[5].split(';'),
             tempSpeed: result[6].split(';'),
-            miningPool: result[7],
             invalidShares: result[8].split(';')
         };
         return JSON.stringify(standard, null, 4);

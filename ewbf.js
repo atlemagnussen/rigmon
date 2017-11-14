@@ -31,6 +31,7 @@ class Ewbf extends Rest {
             id: this.rigUniqueId,
             unit: this.config.unit,
             version: "EWFB Zec miner",
+            miningPool: data.current_server,
             uptime: moment.duration(parseInt(seconds), 'seconds').format('d [days,] hh:mm'),
             total: {
                 hashRate: this.getTotal(units, "speed_sps"),
