@@ -1,5 +1,4 @@
 html {
-    background-color: yellow;
     height: 100%;
     width: 100%;
 }
@@ -146,4 +145,16 @@ ul.menu-list > li button {
 ul.menu-list>li button:hover {
     background-color: #888;
     color: white;
+}
+
+/******************************************************************************/
+@media only screen and (max-width: 768px) {
+    .upper-container {
+        box-sizing: border-box;
+        height:99%;
+        overflow: auto;
+    }
+    .lower-container {
+        display: none;
+    }
 }
