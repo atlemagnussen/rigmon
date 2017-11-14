@@ -33,7 +33,7 @@ class Claymore extends Rpc.Tcp {
             unit: this.config.unit,
             version: result[0],
             miningPool: result[7],
-            uptime: moment.duration(parseInt(result[1]), 'minutes').format('d [days,] hh:mm'),
+            uptime: moment.duration(parseInt(result[1]), 'minutes').format('d [days,] hh:mm:ss'),
             total: {
                 hashRate: totals[0],
                 shares: totals[1],
