@@ -44,7 +44,7 @@ class Miners extends HTMLElement {
         };
         for(var i=0; i<this.miners.length; i++) {
             var miner = this.miners[i];
-            totalAll.hashRate += miner.total.hashRate;
+            totalAll.hashRate += parseInt(miner.total.hashRate);
             var elo = this.minersElements.find(function(e) { return e.id === miner.id; }); // jshint ignore:line
             if (!elo) {
                 let newEl = document.createElement('rig-miner');
