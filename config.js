@@ -7,17 +7,18 @@ if (!config.refreshMs || isNaN(config.refreshMs)) {
 if (!config.port || isNaN(config.port)) {
     config.port = 8088;
 }
-
+let rigs = 0;
+let miners = 0;
 if (config.rigs) {
-    let rigs = 0;
-    let miners = 0;
     for(var r in config.rigs) {
         if(config.rigs.hasOwnProperty(r)) {
             rigs++;
             let rig = config.rigs[r];
-            rig.no = rigs;
             if (rig.miners && Array.isArray(rig.miners)) {
                 miners += rig.miners.length;
+                for(var i=0;i<rig.miners.length;i++) {
+                    rig.no = i+1;
+                }
             }
         }
     }
@@ -34,7 +35,8 @@ if (config.rigs) {
     logger.error(err);
     throw err;
 }
-
+logger.info("number of rigs:" + rigs);
+logger.info("number of miners:" + miners);
 module.exports = {
     rigs: config.rigs,
     refreshMs: config.refreshMs,

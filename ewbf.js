@@ -6,7 +6,7 @@ require("moment-duration-format");
 class Ewbf extends Rest {
     constructor(rigName, rigNo, config, refreshMs, wss) {
         var request = "getstat";
-        logger.debug(request);
+        logger.trace(request);
         super(rigName, rigNo, config, request, refreshMs);
         this.wss = wss;
         this.on('data', (data) => {
