@@ -7,11 +7,21 @@ document.addEventListener("DOMContentLoaded", function() {
     var btnDisconnect = document.getElementById("btnDisconnect");
     var textAreaOutput = document.getElementById("output");
     var minersEl = document.getElementById("miners");
-    btnConnect.addEventListener("click", function() {
 
+    var w;
+    btnConnect.addEventListener("click", function() {
+        if (w) {
+            w.postMessage('connect');
+        } else {
+            showMessage("no worker");
+        }
     });
     btnDisconnect.addEventListener("click", function() {
-
+        if (w) {
+            w.postMessage('close');
+        } else {
+            showMessage("no worker");
+        }
     });
     btnRefresh.addEventListener("click", function() {
         rest.call("GET", "api")
@@ -23,15 +33,19 @@ document.addEventListener("DOMContentLoaded", function() {
         textAreaOutput.scrollTop = textAreaOutput.scrollHeight;
     }
 
-    var w;
     if(typeof(w) === "undefined") {
         w = new Worker("miner.worker.js");
     }
     w.onmessage = function(event){
         if (event.data && Array.isArray(event.data)) {
-            minersEl.setAttribute("miners", JSON.stringify(event.data));
+            var type = event.data[0];
+            if (type === "data") {
+                minersEl.setAttribute("miners", JSON.stringify(event.data[1]));
+            } else {
+                showMessage(event.data[1]);
+            }
         } else {
-            showMessage(event.data);
+            showMessage(event.data[1]);
         }
     };
     w.postMessage('connect');

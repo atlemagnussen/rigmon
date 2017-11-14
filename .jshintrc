@@ -68,7 +68,7 @@
     "rhino"         : false,
     "shelljs"       : false,
     "typed"         : false,
-    "worker"        : false,
+    "worker"        : true,
     "wsh"           : false,
     "yui"           : false,
 

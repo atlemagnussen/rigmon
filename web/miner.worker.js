@@ -6,13 +6,13 @@ function initWs() {
     if (!ws || ws.readyState === ws.CLOSED) {
     ws = new WebSocket(`ws://${location.host}`);
         ws.onerror = () => {
-            console.log('WebSocket error');
+            postWsMessage('WebSocket error');
         };
         ws.onopen = () => {
-            console.log('WebSocket connection established');
+            postWsMessage('WebSocket connection established');
         };
         ws.onclose = () => {
-            console.log('WebSocket connection closed');
+            postWsMessage('WebSocket connection closed');
         };
         ws.onmessage = (msg) => {
             try {
@@ -25,18 +25,30 @@ function initWs() {
                     miners.splice(index, 1);
                     miners.push(d);
                 }
-                postMessage(miners);// jshint ignore:line
+                postMessage(['data',miners]);
             } catch(e) {
-                postMessage(msg.data);// jshint ignore:line
+                postWsMessage(msg.data);
             }
         };
     } else {
-        console.log("web socket is already open. readyState=" + ws.readyState);
+        postWsMessage("web socket is already open. readyState=" + ws.readyState);
     }
 }
-onmessage = function(e) {// jshint ignore:line
+function disconnectWs() {
+    if (ws && ws.readyState === ws.OPEN) {
+        ws.close();
+    } else {
+        postWsMessage("web socket is not open. readyState=" + ws.readyState);
+    }
+}
+function postWsMessage(msg) {
+    postMessage(['ws', msg]);
+}
+onmessage = function(e) {
     var cmd = e.data;
     if (cmd === "connect") {
         initWs();
+    } else if (cmd === "close") {
+        disconnectWs();
     }
 };
