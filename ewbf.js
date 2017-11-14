@@ -1,5 +1,7 @@
 const logger = require('./logger.js');
 var Rest = require('./rest.js');
+var moment = require('moment');
+require("moment-duration-format");
 
 class Ewbf extends Rest {
     constructor(rigName, rigNo, config, refreshMs, wss) {
@@ -23,17 +25,12 @@ class Ewbf extends Rest {
     }
     transform(data) {
         var result = data[this.rigName].result;
+        var diff = Math.abs(new Date() - new Date(data.start_time*1000));
+        var seconds = Math.floor((diff/1000));
         var standard = {
             id: this.rigName,
-            version: result[0],
-            runningMinutes: result[1],
-            totalHash: result[2].split(';'),
-            detailHash: result[3].split(';'),
-            totalHashSecondary: result[4].split(';'),
-            detailHashSecondary: result[5].split(';'),
-            tempSpeed: result[6].split(';'),
-            miningPool: result[7],
-            invalidShares: result[8].split(';')
+            version: "EWFB Zec miner",
+            uptime: moment.duration(parseInt(seconds), 'seconds').format('d [days,] hh:mm')
         };
         return JSON.stringify(standard, null, 4);
     }

@@ -1,5 +1,7 @@
 const logger = require('./logger.js');
 const Rpc = require('./rpc.js');
+var moment = require('moment');
+require("moment-duration-format");
 
 class Claymore extends Rpc.Tcp {
     constructor(rigName, rigNo, config, refreshMs, wss) {
@@ -27,7 +29,7 @@ class Claymore extends Rpc.Tcp {
         var standard = {
             id: this.rigName,
             version: result[0],
-            runningMinutes: result[1],
+            uptime: moment.duration(parseInt(result[1]), 'minutes').format('d [days,] hh:mm'),
             totalHash: result[2].split(';'),
             detailHash: result[3].split(';'),
             totalHashSecondary: result[4].split(';'),
