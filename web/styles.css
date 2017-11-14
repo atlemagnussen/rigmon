@@ -15,7 +15,7 @@ body {
 .content {
     background-color: green;
     background: green;
-    background: linear-gradient(#436060, #001400);
+    background: linear-gradient(#193419, #000);
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -48,10 +48,12 @@ h1 {
 }
 .flex-container {
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 .upper-container .flex-container {
     margin: 5px auto;
-    width: 80%;
+    width: 95%;
 }
 .lower-container .flex-container {
     height: 100%;
@@ -106,10 +108,10 @@ input[type="number"]  {
     font-family: Arial, 'Lucida Sans Unicode';
 }
 .small {
-    font-size: 70%
+    font-size: 70%;
 }
 #query {
-    width: 99%;
+    width: 99%;paddingpadding
 }
 #version {
     text-align: right;

@@ -13,6 +13,8 @@ class Miner extends HTMLElement {
         <style>
             #miner {
                 border-style: ridge;
+                padding: 5px;
+                margin: 5px;
             }
         </style>
         `;
@@ -33,10 +35,18 @@ class Miner extends HTMLElement {
     }
     update() {
         let minersDiv = this.shadowRoot.querySelector('#miner');
-        let unit = this.miner.unit;
-        minersDiv.innerHTML = `
+        let hashSpeedUnit = this.miner.hashSpeedUnit;
+        let htmlString = `
         <p>${this.miner.id} - ${this.miner.version} - ${this.miner.miningPool} - running for ${this.miner.uptime}</p>
-        <p>total ${this.miner.total.hashRate}${unit} - ${this.miner.total.shares} shares where ${this.miner.total.rejected} rejected</p>`;
+        <p>total ${this.miner.total.hashRate}${hashSpeedUnit} - ${this.miner.total.shares} shares where ${this.miner.total.rejected} rejected</p>
+        <p>`;
+        let counter = 0;
+        this.miner.units.forEach(function(unit) {
+            htmlString += `gpu${counter}: ${unit.hashRate}${hashSpeedUnit} - temp ${unit.temperature} - ${unit.extraInfo}<br/>`;
+            counter++;
+        });
+        htmlString += "</p>";
+        minersDiv.innerHTML = htmlString;
     }
 }
 customElements.define('rig-miner', Miner); // jshint ignore:line

@@ -10,9 +10,11 @@ class Formatter {
     claymore(data) {
         var result = data.result;
         var totals = result[2].split(';');
+        var detailHash = result[3].split(';');
+        var tempSpeed = result[6].split(';');
         var standard = {
             id: this.rigUniqueId,
-            unit: this.config.unit,
+            hashSpeedUnit: this.config.unit,
             version: result[0],
             miningPool: result[7],
             uptime: moment.duration(parseInt(result[1]), 'minutes').format('d [days,] hh:mm:ss'),
@@ -21,12 +23,24 @@ class Formatter {
                 shares: totals[1],
                 rejected: totals[2]
             },
-            detailHash: result[3].split(';'),
+            units: [],
             totalHashSecondary: result[4].split(';'),
             detailHashSecondary: result[5].split(';'),
-            tempSpeed: result[6].split(';'),
             invalidShares: result[8].split(';')
         };
+
+        for(var i=0; i<detailHash.length; i++) {
+            var hash = detailHash[i];
+            var temp = tempSpeed[2*i];
+            var fanSpeed = tempSpeed[2*i+1];
+            var unit = {
+                hashRate: hash,
+                temperature: temp ? `${temp}ºC` : "NaN",
+                extraInfo: fanSpeed ? `Fan speed ${fanSpeed}%` : ""
+            };
+            standard.units.push(unit);
+        }
+
         return JSON.stringify(["miner", standard]);
     }
 
@@ -47,7 +61,7 @@ class Formatter {
 
         var standard = {
             id: this.rigUniqueId,
-            unit: this.config.unit,
+            hashSpeedUnit: this.config.unit,
             version: "EWFB Zec miner",
             miningPool: data.current_server,
             uptime: moment.duration(parseInt(seconds), 'seconds').format('d [days,] hh:mm:ss'),
@@ -55,8 +69,19 @@ class Formatter {
                 hashRate: getTotal(units, "speed_sps"),
                 shares: getTotal(units, "accepted_shares"),
                 rejected: getTotal(units, "rejected_shares")
-            }
+            },
+            units: []
         };
+
+        units.forEach(function(unit) {
+            var convertedUnit = {
+                hashRate: unit.speed_sps,
+                temperature: `${unit.temperature}ºC`,
+                extraInfo: `Power ${unit.gpu_power_usage}W`
+            };
+            standard.units.push(convertedUnit);
+        });
+
         return JSON.stringify(["miner", standard]);
     }
 }

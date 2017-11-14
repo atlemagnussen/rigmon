@@ -14,7 +14,6 @@ class Miners extends HTMLElement {
                 font-weight: bold;
             }
         </style>
-        <div id="miners"></div>
         <div id="total">Total hashrate all rigs <span class="bold">0 H/s</span></div>`;
     }
     static get observedAttributes() {return ['miners']; }
@@ -58,7 +57,7 @@ class Miners extends HTMLElement {
                 };
                 this.minersElements.push(elObj);
                 newEl.setAttribute('miner', JSON.stringify(miner));
-                this.minersDiv.appendChild(newEl);
+                this.shadowRoot.prepend(newEl);
             } else {
                 var el = elo.element;
                 el.setAttribute('miner', JSON.stringify(miner));

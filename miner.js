@@ -2,9 +2,9 @@ const logger = require('./logger.js');
 const EventEmitter = require('events');
 
 class Miner extends EventEmitter {
-    constructor(rigName, rigNo, refreshMs, wss, formatter) {
+    constructor(rigName, rigNo, refreshMs) {
         super();
-        if (!rigName) {
+        if (!rigName || !rigNo) {
             logger.error("no rig name!");
             throw "no rig name!";
         }
@@ -21,7 +21,7 @@ class Miner extends EventEmitter {
         }, this.refreshMsh);
         this.on('data', (data) => {
             var minerData = this.formatter(data);
-            logger.trace(minerData);
+            logger.debug(minerData);
             if (this.wss) {
                 logger.trace("clients: " + this.wss.clients.size);
                 this.wss.clients.forEach(function each(ws) {
