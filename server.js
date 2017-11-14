@@ -8,6 +8,7 @@ const http = require('http');
 const url = require('url');
 const ws = require('ws');
 const Claymore = require('./claymore.js');
+const Ewbf = require('./ewbf.js');
 
 // static server
 const app = express();
@@ -33,10 +34,13 @@ if (config.rigs) {
             let rig = config.rigs[r];
             if (rig.miners && Array.isArray(rig.miners)) {
                 for(var i=0; i<rig.miners.length; i++) {
-                    var miner = rig.miners[i];
-                    if (miner.type === "claymore") {
-                        var o = new Claymore(r, rig.no, miner, config.refreshMs, wss);
+                    var minerConf = rig.miners[i];
+                    if (minerConf.type === "claymore") {
+                        var o = new Claymore(r, rig.no, minerConf, config.refreshMs, wss);
                         rigObj.push(o);
+                    } else if (minerConf.type === "ewbf") {
+                        var ewbfMiner = new Ewbf(r, rig.no, minerConf, config.refreshMs, wss);
+                        rigObj.push(ewbfMiner);
                     }
                 }
             }
