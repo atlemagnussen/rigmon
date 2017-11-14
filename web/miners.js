@@ -9,8 +9,13 @@ class Miners extends HTMLElement {
 
         let shadowRoot = this.attachShadow({mode: 'open'});
         shadowRoot.innerHTML = `
+        <style>
+            .bold {
+                font-weight: bold;
+            }
+        </style>
         <div id="miners"></div>
-        <div id="total"></div>`;
+        <div id="total">Total hashrate all rigs <span class="bold">0 H/s</span></div>`;
     }
     static get observedAttributes() {return ['miners']; }
 
