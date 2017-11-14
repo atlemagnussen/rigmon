@@ -8,14 +8,17 @@ class Ewbf extends Rest {
         super(rigName, config, request, refreshMs);
         this.wss = wss;
         this.on('data', (data) => {
-            if (this.wss) {
-                var d = this.transform(data);
-                logger.debug("clients: " + this.wss.clients.size);
-                this.wss.clients.forEach(function each(ws) {
-                    logger.debug("ws.readyState: " + ws.readyState);
-                    ws.send(d);
-                });
-            }
+            var d = JSON.stringify(data);
+            logger.debug("ewbf data arrived");
+            logger.debug(d);
+            // if (this.wss) {
+            //     var d = this.transform(data);
+            //     logger.debug("clients: " + this.wss.clients.size);
+            //     this.wss.clients.forEach(function each(ws) {
+            //         logger.debug("ws.readyState: " + ws.readyState);
+            //         ws.send(d);
+            //     });
+            // }
         });
     }
     transform(data) {
