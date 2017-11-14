@@ -16,16 +16,21 @@ function initWs() {
         };
         ws.onmessage = (msg) => {
             try {
-                var d = JSON.parse(msg.data);
-                var current = miners.find(function(i) { return i.id === d.id; });
-                if (!current) {
-                    miners.push(d);
-                } else {
-                    var index = miners.indexOf(current);
-                    miners.splice(index, 1);
-                    miners.push(d);
+                var data = JSON.parse(msg.data);
+                var key = data[0];
+                if (key === "miner") {
+                    var minerData = data[1];
+                    var existing = miners.find(function(i) { return i.id === minerData.id; });
+                    if (!existing) {
+                        miners.push(minerData);
+                    } else {
+                        var index = miners.indexOf(existing);
+                        miners.splice(index, 1);
+                        miners.push(minerData);
+                    }
+                    postMessage(['data',miners]);
                 }
-                postMessage(['data',miners]);
+
             } catch(e) {
                 postWsMessage(msg.data);
             }

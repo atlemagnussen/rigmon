@@ -7,6 +7,7 @@ const express = require('express');
 const http = require('http');
 const url = require('url');
 const ws = require('ws');
+const formatter = require('./formatter.js');
 const Claymore = require('./claymore.js');
 const Ewbf = require('./ewbf.js');
 
@@ -19,12 +20,12 @@ const server = http.createServer(app);
 const wss = new ws.Server({ server });
 wss.on('connection', function connection(ws, req) {
     const location = url.parse(req.url, true);
-    logger.debug("location: " + JSON.stringify(location));
+    logger.trace("location: " + JSON.stringify(location));
     ws.on('message', function incoming(message) {
         console.log('received: %s', message);
     });
 
-    ws.send('Hello from server!');
+    ws.send(formatter.ws("config", config));
 });
 
 var rigObj = []
