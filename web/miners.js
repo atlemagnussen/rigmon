@@ -10,15 +10,14 @@ class Miners extends HTMLElement {
         let shadowRoot = this.attachShadow({mode: 'open'});
         shadowRoot.innerHTML = `
         <div id="miners"></div>
-        <div id="total"></div>
-        `;
+        <div id="total"></div>`;
     }
     static get observedAttributes() {return ['miners']; }
 
     connectedCallback() {
         console.log("connected");
         this.minersDiv = this.shadowRoot.querySelector('#miners');
-        this.totalDiv = this.shadowRoot.querySelector('#miners');
+        this.totalDiv = this.shadowRoot.querySelector('#total');
         this.update();
     }
 
