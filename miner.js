@@ -21,14 +21,15 @@ class Miner extends EventEmitter {
         this.on('data', (data) => {
             try {
                 this.lastUpdate = new Date();
-                data.lastUpdate = this.lastUpdate;
                 var minerData = this.formatter(data);
+                minerData.lastUpdate = this.lastUpdate;
                 logger.trace(minerData);
                 if (this.wss) {
                     logger.trace("clients: " + this.wss.clients.size);
                     this.wss.clients.forEach(function each(ws) {
                         logger.debug("ws.readyState: " + ws.readyState);
-                        ws.send(minerData);
+                        var wssStringifiedData = JSON.stringify(["miner", minerData]);
+                        ws.send(wssStringifiedData);
                     });
                 }
             } catch(e) {

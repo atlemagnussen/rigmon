@@ -41,7 +41,7 @@ class Formatter {
             standard.units.push(unit);
         }
 
-        return JSON.stringify(["miner", standard]);
+        return standard;
     }
 
     ewbf(data) {
@@ -82,7 +82,7 @@ class Formatter {
             standard.units.push(convertedUnit);
         });
 
-        return JSON.stringify(["miner", standard]);
+        return standard;
     }
 }
 
