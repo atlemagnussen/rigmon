@@ -29,6 +29,8 @@ function initWs() {
                         miners.push(minerData);
                     }
                     postMessage(['data',miners]);
+                } else if (key === "config") {
+                    postMessage(['config',data[1]]);
                 }
 
             } catch(e) {

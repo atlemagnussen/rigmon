@@ -16,7 +16,7 @@ class Miners extends HTMLElement {
         </style>
         <div id="total">Total hashrate all rigs <span class="bold">0 H/s</span></div>`;
     }
-    static get observedAttributes() {return ['miners']; }
+    static get observedAttributes() {return ['miners','config']; }
 
     connectedCallback() {
         console.log("connected");
@@ -26,17 +26,50 @@ class Miners extends HTMLElement {
     }
 
     attributeChangedCallback(attributeName, oldValue, newValue) {
-        if (attributeName === 'miners') {
-            try {
-                var obj = JSON.parse(newValue);
+        try {
+            var obj = JSON.parse(newValue);
+            if (attributeName === 'miners') {
                 this.miners = obj;
                 this.update();
-            } catch (e) {
-                console.log(newValue);
+            } else if (attributeName === 'config') {
+                this.config = obj;
+                this.updateConfig();
             }
-
+        } catch (e) {
+            console.log(newValue);
         }
     }
+
+    updateConfig() {
+        if (this.config.rigs) {
+            for(var r in this.config.rigs) {
+                if(this.config.rigs.hasOwnProperty(r)) {
+                    let rig = this.config.rigs[r];
+                    if (rig.miners && Array.isArray(rig.miners)) {
+                        for(var i=0; i<rig.miners.length; i++) {
+                            var minerConf = rig.miners[i];
+                            console.log(`rig ${r}-${minerConf.no} ${minerConf.type}`);
+                            var minerId = `${r}-${minerConf.no}`;
+                            minerConf.id = minerId;
+                            this.createMinerElement(minerId, minerConf);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    createMinerElement(minerId, minerConf) {
+        let newEl = document.createElement('rig-miner');
+        var elObj = {
+            id: minerId,
+            element: newEl
+        };
+        this.minersElements.push(elObj);
+        newEl.setAttribute('config', JSON.stringify(minerConf));
+        this.shadowRoot.prepend(newEl);
+    }
+
     update() {
         if (!this.miners || this.miners.length===0) {
             return;
@@ -49,16 +82,7 @@ class Miners extends HTMLElement {
             var miner = this.miners[i];
             totalAll.hashRate += parseInt(miner.total.hashRate);
             var elo = this.minersElements.find(function(e) { return e.id === miner.id; }); // jshint ignore:line
-            if (!elo) {
-                let newEl = document.createElement('rig-miner');
-                var elObj = {
-                    id: miner.id,
-                    element: newEl
-                };
-                this.minersElements.push(elObj);
-                newEl.setAttribute('miner', JSON.stringify(miner));
-                this.shadowRoot.prepend(newEl);
-            } else {
+            if (elo) {
                 var el = elo.element;
                 el.setAttribute('miner', JSON.stringify(miner));
             }

@@ -16,28 +16,32 @@ class Miner extends HTMLElement {
                 padding: 5px;
                 margin: 5px;
             }
+            .time {
+                color: yellow;
+                font-size: 80%;
+            }
         </style>
         `;
     }
-    static get observedAttributes() {return ['miner']; }
+    static get observedAttributes() {return ['miner', 'config', 'id']; }
     connectedCallback() {
         console.log("connected");
-        this.update();
-
-        // this.appendChild(this.paragraph);
     }
 
     attributeChangedCallback(attributeName, oldValue, newValue) {
-        if (attributeName === 'miner') {
+        if (attributeName === 'config') {
+            this.config = JSON.parse(newValue);
+            this.updateConfig();
+        } else if (attributeName === 'miner') {
             this.miner = JSON.parse(newValue);
+            this.update();
         }
-        this.update();
     }
     update() {
         let minersDiv = this.shadowRoot.querySelector('#miner');
         let hashSpeedUnit = this.miner.hashSpeedUnit;
-        let htmlString = `
-        <p>${this.miner.id} - ${this.miner.version} - ${this.miner.miningPool} - running ${this.miner.uptime} - updated ${this.miner.lastUpdate}</p>
+        let htmlString = this.configHtml +
+        `<p>${this.miner.version} - ${this.miner.miningPool}<br/><span class="time">updated ${this.miner.lastUpdate} - running ${this.miner.uptime}</span></p>
         <p>total ${this.miner.total.hashRate} ${hashSpeedUnit} - ${this.miner.total.shares} shares - ${this.miner.total.rejected} rejected</p>
         <p>`;
         let counter = 0;
@@ -47,6 +51,11 @@ class Miner extends HTMLElement {
         });
         htmlString += "</p>";
         minersDiv.innerHTML = htmlString;
+    }
+    updateConfig() {
+        let minersDiv = this.shadowRoot.querySelector('#miner');
+        this.configHtml = `<p>${this.config.id} (${this.config.host}) - ${this.config.type}</p>`;
+        minersDiv.innerHTML = this.configHtml;
     }
 }
 customElements.define('rig-miner', Miner); // jshint ignore:line

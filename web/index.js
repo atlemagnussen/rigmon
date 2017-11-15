@@ -33,13 +33,6 @@ document.addEventListener("DOMContentLoaded", function() {
         textAreaOutput.scrollTop = textAreaOutput.scrollHeight;
     }
 
-    function initMiners() {
-        rest.call("GET", "api/config")
-        .then(function(config) {
-            var confString = JSON.stringify(config);
-        }, showMessage);
-    }
-
     if(typeof(w) === "undefined") {
         w = new Worker("miner.worker.js");
     }
@@ -48,6 +41,8 @@ document.addEventListener("DOMContentLoaded", function() {
             var type = event.data[0];
             if (type === "data") {
                 minersEl.setAttribute("miners", JSON.stringify(event.data[1]));
+            } else if (type === "config") {
+                minersEl.setAttribute("config", JSON.stringify(event.data[1]));
             } else {
                 showMessage(event.data[1]);
             }
