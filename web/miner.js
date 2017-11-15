@@ -23,7 +23,7 @@ class Miner extends HTMLElement {
         </style>
         `;
     }
-    static get observedAttributes() {return ['miner', 'config', 'id']; }
+    static get observedAttributes() {return ['miner', 'config']; }
     connectedCallback() {
         console.log("connected");
     }
