@@ -2,7 +2,7 @@
     "title": "attz minermon",
     "port": 8088,
     "refreshMs": 5000,
-    "minertimeout": 1000,
+    "minerTimeout": 1000,
     "rigs": {
         "rig2": {
             "miners": [

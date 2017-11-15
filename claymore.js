@@ -1,16 +1,16 @@
-const logger = require('./logger.js');
+const logger = require('./logger.js').getLogger("claymore");
 const Rpc = require('./rpc.js');
 const formatter = require('./formatter.js');
 
 class Claymore extends Rpc.Tcp {
-    constructor(rigName, config, refreshMs, wss) {
+    constructor(rigName, minerConfig, wss) {
         var request = JSON.stringify({
-                        "id": config.no,
+                        "id": minerConfig.no,
                         "jsonrpc":"2.0",
                         "method":"miner_getstat1"
                     });
         logger.trace(request);
-        super(rigName, config, request, refreshMs);
+        super(rigName, minerConfig, request);
         this.wss = wss;
         this.formatter = formatter.claymore;
     }

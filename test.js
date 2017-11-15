@@ -1,5 +1,5 @@
 const config = require('./config.js');
-const logger = require('./logger.js');
+const logger = require('./logger.js').getLogger("test");
 const WssMock = require('./wssMock.js');
 logger.debug('Booting');
 

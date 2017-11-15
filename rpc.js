@@ -1,17 +1,19 @@
-const logger = require('./logger.js');
+const logger = require('./logger.js').getLogger("tcp");
+const config = require('./config.js');
 var net = require('net');
 var Miner = require('./miner.js');
 
 class Tcp extends Miner{
-    constructor(rigName, config, request, refreshMs) {
-        super(rigName, config.no, refreshMs);
+    constructor(rigName, minerConfig, request) {
+        super(rigName, minerConfig.no);
         this.on('refresh', (id) => {
             logger.debug(`Refresh ${id}`);
             this.connect();
         });
-        this.config = config;
+        this.config = minerConfig;
 
         this.socket = new net.Socket()
+        .setTimeout(config.minerTimeout)
         .on('data', (data) => {
             var parsedData = JSON.parse(data);
             logger.trace("Tcp Data arrived");
@@ -21,10 +23,10 @@ class Tcp extends Miner{
             logger.trace('close');
         })
         .on('timeout', function() {
-            logger.trace('timeout');
+            logger.error('timeout');
         })
-        .on('error', function() {
-            logger.trace('error');
+        .on('error', function(error) {
+            logger.error(error);
         })
         .on('connect', function() {
             logger.trace(`: connected to ${this.remoteAddress} ${this.remotePort}`);

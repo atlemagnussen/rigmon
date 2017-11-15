@@ -1,16 +1,16 @@
-const logger = require('./logger.js');
+const logger = require('./logger.js').getLogger("rest");
 var http = require('http');
 var Miner = require('./miner.js');
 
 class Rest extends Miner {
-    constructor(rigName, config, request, refreshMs) {
-        super(rigName, config.no, refreshMs);
+    constructor(rigName, minerConfig, request) {
+        super(rigName, minerConfig.no);
         this.on('refresh', (id) => {
             logger.debug(`Refresh ${id}`);
             this.get();
         });
-        this.config = config;
-        this.baseUrl = `http://${config.host}:${config.port}`;
+        this.config = minerConfig;
+        this.baseUrl = `http://${minerConfig.host}:${minerConfig.port}`;
         this.request = request;
         this.requestUrl = `${this.baseUrl}/${this.request}`;
     }

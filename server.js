@@ -1,5 +1,5 @@
 const config = require('./config.js');
-const logger = require('./logger.js');
+const logger = require('./logger.js').default;
 logger.debug('Booting');
 
 const path = require('path');
@@ -38,10 +38,10 @@ if (config.rigs) {
                     var minerConf = rig.miners[i];
                     logger.info(`rig ${r}-${minerConf.no} ${minerConf.type}`);
                     if (minerConf.type === "claymore") {
-                        var o = new Claymore(r, minerConf, config.refreshMs, wss);
+                        var o = new Claymore(r, minerConf, wss);
                         rigObj.push(o);
                     } else if (minerConf.type === "ewbf") {
-                        var ewbfMiner = new Ewbf(r, minerConf, config.refreshMs, wss);
+                        var ewbfMiner = new Ewbf(r, minerConf, wss);
                         rigObj.push(ewbfMiner);
                     }
                 }

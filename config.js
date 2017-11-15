@@ -1,8 +1,11 @@
 const config = require('./config.json');
-const logger = require('./logger.js');
+const logger = require('./logger.js').default;
 
 if (!config.refreshMs || isNaN(config.refreshMs)) {
     config.refreshMs = 5000;
+}
+if (!config.minerTimeout || isNaN(config.minerTimeout)) {
+    config.minerTimeout = 1000;
 }
 if (!config.port || isNaN(config.port)) {
     config.port = 8088;
@@ -43,5 +46,6 @@ logger.info("number of miners:" + miners);
 module.exports = {
     rigs: config.rigs,
     refreshMs: config.refreshMs,
+    minerTimeout: config.minerTimeout,
     port: config.port
 };
