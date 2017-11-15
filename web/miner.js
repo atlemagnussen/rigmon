@@ -37,7 +37,7 @@ class Miner extends HTMLElement {
         let minersDiv = this.shadowRoot.querySelector('#miner');
         let hashSpeedUnit = this.miner.hashSpeedUnit;
         let htmlString = `
-        <p>${this.miner.id} - ${this.miner.version} - ${this.miner.miningPool} - running for ${this.miner.uptime}</p>
+        <p>${this.miner.id} - ${this.miner.version} - ${this.miner.miningPool} - running ${this.miner.uptime} - updated ${this.miner.lastUpdate}</p>
         <p>total ${this.miner.total.hashRate} ${hashSpeedUnit} - ${this.miner.total.shares} shares - ${this.miner.total.rejected} rejected</p>
         <p>`;
         let counter = 0;

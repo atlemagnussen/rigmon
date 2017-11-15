@@ -13,13 +13,16 @@ class Miner extends EventEmitter {
         this.rigNo = rigNo;
         this.rigUniqueId = `${rigName}-${rigNo}`;
         this.refreshMsh = config.refreshMs;
+        this.lastUpdate = new Date();
         setInterval(() => {
             this.refresh();
         }, this.refreshMsh);
 
         this.on('data', (data) => {
             try {
+                this.lastUpdate = new Date();
                 var minerData = this.formatter(data);
+                minerData.lastUpdate = this.lastUpdate;
                 logger.trace(minerData);
                 if (this.wss) {
                     logger.trace("clients: " + this.wss.clients.size);
