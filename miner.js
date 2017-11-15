@@ -1,6 +1,7 @@
 const logger = require('./logger.js').getLogger("miner");
 const EventEmitter = require('events');
 const config = require('./config.js');
+var moment = require('moment');
 
 class Miner extends EventEmitter {
     constructor(rigName, rigNo) {
@@ -22,7 +23,7 @@ class Miner extends EventEmitter {
             try {
                 this.lastUpdate = new Date();
                 var minerData = this.formatter(data);
-                minerData.lastUpdate = this.lastUpdate;
+                minerData.lastUpdate = moment().format("YY-MM-DD HH:mm:ss");
                 logger.trace(minerData);
                 if (this.wss) {
                     logger.trace("clients: " + this.wss.clients.size);
