@@ -38,11 +38,11 @@ class Miner extends HTMLElement {
         let hashSpeedUnit = this.miner.hashSpeedUnit;
         let htmlString = `
         <p>${this.miner.id} - ${this.miner.version} - ${this.miner.miningPool} - running for ${this.miner.uptime}</p>
-        <p>total ${this.miner.total.hashRate}${hashSpeedUnit} - ${this.miner.total.shares} shares - ${this.miner.total.rejected} rejected</p>
+        <p>total ${this.miner.total.hashRate} ${hashSpeedUnit} - ${this.miner.total.shares} shares - ${this.miner.total.rejected} rejected</p>
         <p>`;
         let counter = 0;
         this.miner.units.forEach(function(unit) {
-            htmlString += `gpu${counter}: ${unit.hashRate}${hashSpeedUnit} - temp ${unit.temperature} - ${unit.extraInfo}<br/>`;
+            htmlString += `gpu${counter}: ${unit.hashRate} ${hashSpeedUnit} - temp ${unit.temperature} - ${unit.extraInfo}<br/>`;
             counter++;
         });
         htmlString += "</p>";
