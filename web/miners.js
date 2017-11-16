@@ -42,7 +42,7 @@ class Miners extends HTMLElement {
 
     updateConfig() {
         if (this.config.rigs) {
-            this.removeOldElements();
+            this.removeOldMiners();
             for(var r in this.config.rigs) {
                 if(this.config.rigs.hasOwnProperty(r)) {
                     let rig = this.config.rigs[r];
@@ -60,9 +60,9 @@ class Miners extends HTMLElement {
         }
     }
 
-    removeOldElements() {
-        this.minersElements.forEach(function (minerElement) {
-            minerElement.remove();
+    removeOldMiners() {
+        this.minersElements.forEach(function (miner) {
+            miner.element.remove();
         });
         this.minersElements = [];
     }
