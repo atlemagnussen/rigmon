@@ -1,6 +1,6 @@
 {
   "name": "attz-minermon",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Miner monitor for gpu and cpu miners with built in apis",
   "main": "index.js",
   "scripts": {
