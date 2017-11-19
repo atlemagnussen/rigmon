@@ -1,4 +1,4 @@
-const logger = require('./logger.js').getLogger("ewbf");
+const logger = require('../logger.js').getLogger("ewbf");
 var Rest = require('./rest.js');
 const formatter = require('./formatter.js');
 

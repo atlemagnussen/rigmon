@@ -7,9 +7,9 @@ const express = require('express');
 const http = require('http');
 const url = require('url');
 const ws = require('ws');
-const formatter = require('./formatter.js');
-const Claymore = require('./claymore.js');
-const Ewbf = require('./ewbf.js');
+const formatter = require('./miner/formatter.js');
+const Claymore = require('./miner/claymore.js');
+const Ewbf = require('./miner/ewbf.js');
 
 // static server
 const app = express();
@@ -38,8 +38,8 @@ if (config.rigs) {
                     var minerConf = rig.miners[i];
                     logger.info(`rig ${r}-${minerConf.no} ${minerConf.type}`);
                     if (minerConf.type === "claymore") {
-                        var o = new Claymore(r, minerConf, wss);
-                        rigObj.push(o);
+                        var claymoreMiner = new Claymore(r, minerConf, wss);
+                        rigObj.push(claymoreMiner);
                     } else if (minerConf.type === "ewbf") {
                         var ewbfMiner = new Ewbf(r, minerConf, wss);
                         rigObj.push(ewbfMiner);

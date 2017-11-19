@@ -5,8 +5,8 @@ logger.debug('Booting');
 
 var path = require('path');
 var express = require('express');
-const Claymore = require('./claymore.js');
-const Ewbf = require('./ewbf.js');
+const Claymore = require('./miner/claymore.js');
+const Ewbf = require('./miner/ewbf.js');
 
 // static server
 var port = 8088;
@@ -27,10 +27,10 @@ if (config.rigs) {
                     var minerConf = rig.miners[i];
                     logger.info(`rig ${r}-${minerConf.no} ${minerConf.type}`);
                     if (minerConf.type === "claymore") {
-                        var claymoreMiner = new Claymore(r, minerConf, config.refreshMs, wss);
+                        var claymoreMiner = new Claymore(r, minerConf, wss);
                         rigObj.push(claymoreMiner);
                     } else if (minerConf.type === "ewbf") {
-                        var ewbfMiner = new Ewbf(r, minerConf, config.refreshMs, wss);
+                        var ewbfMiner = new Ewbf(r, minerConf, wss);
                         rigObj.push(ewbfMiner);
                     }
                 }

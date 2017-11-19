@@ -1,4 +1,4 @@
-const logger = require('./logger.js').getLogger("rest");
+const logger = require('../logger.js').getLogger("rest");
 var http = require('http');
 var Miner = require('./miner.js');
 
@@ -16,7 +16,7 @@ class Rest extends Miner {
     }
 
     get() {
-        logger.debug(this.requestUrl);
+        logger.trace(this.requestUrl);
         http.get(this.requestUrl, (res) => {
             const {
                 statusCode

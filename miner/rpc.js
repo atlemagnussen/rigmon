@@ -1,5 +1,5 @@
-const logger = require('./logger.js').getLogger("tcp");
-const config = require('./config.js');
+const logger = require('../logger.js').getLogger("tcp");
+const config = require('../config.js');
 var net = require('net');
 var Miner = require('./miner.js');
 

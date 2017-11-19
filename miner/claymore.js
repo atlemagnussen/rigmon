@@ -1,4 +1,4 @@
-const logger = require('./logger.js').getLogger("claymore");
+const logger = require('../logger.js').getLogger("claymore");
 const Rpc = require('./rpc.js');
 const formatter = require('./formatter.js');
 

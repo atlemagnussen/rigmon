@@ -1,6 +1,6 @@
-const logger = require('./logger.js').getLogger("miner");
+const config = require('../config.js');
+const logger = require('../logger.js').getLogger("miner");
 const EventEmitter = require('events');
-const config = require('./config.js');
 var moment = require('moment');
 
 class Miner extends EventEmitter {
