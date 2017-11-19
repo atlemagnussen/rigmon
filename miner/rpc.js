@@ -19,7 +19,7 @@ class Tcp extends Miner{
             this.handleData(data);
         })
         .on('close', () => {
-            logger.debug(`${this.rigUniqueId}:: close`);
+            logger.trace(`${this.rigUniqueId}:: close`);
         })
         .on('timeout', () => {
             var timeoutMsg = `timeout (${config.minerTimeout} ms)`;
@@ -32,19 +32,19 @@ class Tcp extends Miner{
             this.emit('minerError', error);
         })
         .on('connect', () => {
-            logger.debug(`${this.rigUniqueId}:: connected to ${this.socket.remoteAddress} ${this.socket.remotePort}`);
+            logger.trace(`${this.rigUniqueId}:: connected to ${this.socket.remoteAddress} ${this.socket.remotePort}`);
             this.socket.write(request + '\n');
         });
     }
 
     handleData(data) {
         var parsedData = JSON.parse(data);
-        logger.debug(`${this.rigUniqueId}:: close`);
+        logger.trace(`${this.rigUniqueId}:: data`);
         this.emit('data', parsedData);
     }
 
     connect() {
-        logger.debug(`${this.rigUniqueId}:: try connect ${this.config.host}:${this.config.port}`);
+        logger.trace(`${this.rigUniqueId}:: try connect ${this.config.host}:${this.config.port}`);
         this.socket.connect(this.config.port, this.config.host);
     }
 }
