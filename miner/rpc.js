@@ -38,9 +38,14 @@ class Tcp extends Miner{
     }
 
     handleData(data) {
-        var parsedData = JSON.parse(data);
-        logger.trace(`${this.rigUniqueId}:: data`);
-        this.emit('data', parsedData);
+        try {
+            var parsedData = JSON.parse(data);
+            logger.trace(`${this.rigUniqueId}:: data`);
+            this.emit('data', parsedData);
+        } catch (e) {
+            logger.error(`${this.rigUniqueId}:: error parsing data ${e}`);
+            this.emit('minerError', e);
+        }
     }
 
     connect() {
