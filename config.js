@@ -1,4 +1,4 @@
-const config = require('./config.json');
+const config = require('./config/config.json');
 const logger = require('./logger.js').default;
 
 if (!config.refreshMs || isNaN(config.refreshMs)) {
