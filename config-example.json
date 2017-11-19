@@ -1,7 +1,7 @@
 {
     "port": 8088,
     "refreshMs": 5000,
-    "minerTimeout": 1000,
+    "minerTimeout": 3000,
     "rigs": {
         "rig1": {
             "miners": [

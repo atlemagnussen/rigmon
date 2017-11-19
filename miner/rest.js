@@ -48,6 +48,7 @@ class Rest extends Miner {
                 }
             });
         }).on('error', (e) => {
+            this.emit('error', e.message);
             logger.error(`Got error: ${e.message}`);
         });
     }

@@ -88,7 +88,9 @@ class Miners extends HTMLElement {
         };
         for(var i=0; i<this.miners.length; i++) {
             var miner = this.miners[i];
-            totalAll.hashRate += parseInt(miner.total.hashRate);
+            if (miner.state === "running") {
+                totalAll.hashRate += parseInt(miner.total.hashRate);
+            }
             var elo = this.minersElements.find(function(e) { return e.id === miner.id; }); // jshint ignore:line
             if (elo) {
                 var el = elo.element;

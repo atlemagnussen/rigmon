@@ -22,31 +22,67 @@ class Miner extends EventEmitter {
 
         this.on('data', (data) => {
             try {
-                this.lastUpdate = new Date();
                 var minerData = this.formatter(data);
+                minerData.state = config.states.running;
                 this.setState(config.states.running);
                 minerData.lastUpdate = moment().format("YY-MM-DD HH:mm:ss");
                 logger.trace(minerData);
-                if (this.wss) {
-                    logger.trace("clients: " + this.wss.clients.size);
-                    this.wss.clients.forEach(function each(ws) {
-                        logger.debug("ws.readyState: " + ws.readyState);
-                        var wssStringifiedData = JSON.stringify(["miner", minerData]);
-                        ws.send(wssStringifiedData);
-                    });
-                }
+                this.updateWssNewData(minerData);
             } catch(e) {
                 logger.error(e);
             }
         });
+
+        this.on('minerError', (err) => {
+            logger.debug(`${this.rigUniqueId}::onMinerError::${err}`);
+            this.setState(config.states.error);
+            var errorData = {
+                id: this.rigUniqueId,
+                lastSeen: this.lastSeen ? this.lastSeen : "never",
+                lastUpdate: moment().format("YY-MM-DD HH:mm:ss"),
+                state: config.states.error,
+                errorMsg: "No connection"
+            };
+            if (err) {
+                errorData.errorMsg += " " + err;
+            }
+            this.updateWssNewData(errorData);
+
+        });
     }
+
     setState(newState) {
+        this.lastUpdate = new Date();
         if (this.state !== newState) {
-            
+            var oldState = this.state;
+            if (oldState === config.states.running) {
+                this.lastSeen = this.lastUpdate;
+            } else if (oldState === config.states.unknown) {
+                this.started = this.lastUpdate;
+            }
+            this.state = newState;
         }
     }
+
     refresh() {
         this.emit('refresh', this.rigUniqueId);
+    }
+
+    updateWssNewData(minerData) {
+        this.updateWss("miner", minerData);
+    }
+
+    updateWss(type, data) {
+        if (this.wss) {
+            logger.trace("clients: " + this.wss.clients.size);
+            this.wss.clients.forEach(function each(ws) {
+                logger.debug("ws.readyState: " + ws.readyState);
+                var wssStringifiedData = JSON.stringify([type, data]);
+                ws.send(wssStringifiedData);
+            });
+        } else {
+            logger.error("No websocket!");
+        }
     }
 }
 

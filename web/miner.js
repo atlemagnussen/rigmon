@@ -20,6 +20,9 @@ class Miner extends HTMLElement {
                 color: yellow;
                 font-size: 80%;
             }
+            .error {
+                color: red;
+            }
         </style>
         `;
     }
@@ -40,16 +43,23 @@ class Miner extends HTMLElement {
     update() {
         let minersDiv = this.shadowRoot.querySelector('#miner');
         let hashSpeedUnit = this.miner.hashSpeedUnit;
-        let htmlString = this.configHtml +
-        `<p>${this.miner.version} - ${this.miner.miningPool}<br/><span class="time">updated ${this.miner.lastUpdate} - running ${this.miner.uptime}</span></p>
-        <p>total ${this.miner.total.hashRate} ${hashSpeedUnit} - ${this.miner.total.shares} shares - ${this.miner.total.rejected} rejected</p>
-        <p>`;
-        let counter = 0;
-        this.miner.units.forEach(function(unit) {
-            htmlString += `gpu${counter}: ${unit.hashRate} ${hashSpeedUnit} - temp ${unit.temperature} - ${unit.extraInfo}<br/>`;
-            counter++;
-        });
-        htmlString += "</p>";
+        let htmlString = this.configHtml;
+        if (this.miner.state === "running") {
+            htmlString += `<p>${this.miner.version} - ${this.miner.miningPool}<br/><span class="time">updated ${this.miner.lastUpdate} - running ${this.miner.uptime}</span></p>
+            <p>total ${this.miner.total.hashRate} ${hashSpeedUnit} - ${this.miner.total.shares} shares - ${this.miner.total.rejected} rejected</p>
+            <p>`;
+
+            let counter = 0;
+            this.miner.units.forEach(function(unit) {
+                htmlString += `gpu${counter}: ${unit.hashRate} ${hashSpeedUnit} - temp ${unit.temperature} - ${unit.extraInfo}<br/>`;
+                counter++;
+            });
+            htmlString += "</p>";
+        } else {
+            htmlString += `<p class="error">${this.miner.state} - ${this.miner.lastSeen}<br/><span class="time">updated ${this.miner.lastUpdate}</span></p>
+            <p class="error"> ${this.miner.errorMsg}</p>`;
+        }
+
         minersDiv.innerHTML = htmlString;
     }
     updateConfig() {
