@@ -12,6 +12,7 @@ class Miner extends EventEmitter {
         }
         this.rigName = rigName;
         this.rigNo = rigNo;
+        this.state = config.states.unknown;
         this.rigUniqueId = `${rigName}-${rigNo}`;
         this.refreshMsh = config.refreshMs;
         this.lastUpdate = new Date();
@@ -23,6 +24,7 @@ class Miner extends EventEmitter {
             try {
                 this.lastUpdate = new Date();
                 var minerData = this.formatter(data);
+                this.setState(config.states.running);
                 minerData.lastUpdate = moment().format("YY-MM-DD HH:mm:ss");
                 logger.trace(minerData);
                 if (this.wss) {
@@ -37,6 +39,11 @@ class Miner extends EventEmitter {
                 logger.error(e);
             }
         });
+    }
+    setState(newState) {
+        if (this.state !== newState) {
+            
+        }
     }
     refresh() {
         this.emit('refresh', this.rigUniqueId);

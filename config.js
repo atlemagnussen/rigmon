@@ -39,10 +39,17 @@ if (config.rigs) {
     throw err;
 }
 
+var states = {
+    unknown: "unknown",
+    running: "running",
+    error: "error"
+};
+
 module.exports = {
     rigs: config.rigs,
     refreshMs: config.refreshMs,
     minerTimeout: config.minerTimeout,
     port: config.port,
-    log: config.log
+    log: config.log,
+    states: states
 };
