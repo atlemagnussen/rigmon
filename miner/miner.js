@@ -77,8 +77,12 @@ class Miner extends EventEmitter {
             logger.trace("clients: " + this.wss.clients.size);
             this.wss.clients.forEach(function each(ws) {
                 logger.debug("ws.readyState: " + ws.readyState);
-                var wssStringifiedData = JSON.stringify([type, data]);
-                ws.send(wssStringifiedData);
+                try {
+                    var wssStringifiedData = JSON.stringify([type, data]);
+                    ws.send(wssStringifiedData);
+                } catch (e) {
+                    logger.error("Error transmittig to websocket:\n" + e);
+                }
             });
         } else {
             logger.error("No websocket!");
