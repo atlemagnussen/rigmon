@@ -23,3 +23,6 @@ Change this in miner.cfg file, line: api 127.0.0.1:42000 -> 192.168.1.11 or what
 - install dependencies `npm install`  
 ### Debug run
 - `node server.js`
+
+[![](https://codescene.io/projects/1987/status.svg) Get more details at **codescene.io**.](https://codescene.io/projects/1987/jobs/latest-successful/results)
+
