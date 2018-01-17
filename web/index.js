@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
     btnRefresh.addEventListener("click", function() {
-        rest.call("GET", "api/config")
+        rest.call("GET", "api/status")
         .then(showMessage, showMessage);
     });
 

@@ -28,7 +28,7 @@ wss.on('connection', function connection(ws, req) {
     ws.send(formatter.ws("config", config));
 });
 
-var rigObj = []
+var miners = [];
 if (config.rigs) {
     for(var r in config.rigs) {
         if(config.rigs.hasOwnProperty(r)) {
@@ -39,10 +39,10 @@ if (config.rigs) {
                     logger.info(`rig ${r}-${minerConf.no} ${minerConf.type}`);
                     if (minerConf.type === "claymore") {
                         var claymoreMiner = new Claymore(r, minerConf, wss);
-                        rigObj.push(claymoreMiner);
+                        miners.push(claymoreMiner);
                     } else if (minerConf.type === "ewbf") {
                         var ewbfMiner = new Ewbf(r, minerConf, wss);
-                        rigObj.push(ewbfMiner);
+                        miners.push(ewbfMiner);
                     }
                 }
             }
@@ -57,6 +57,15 @@ router.get('/', function (req, res) {
 
 router.get('/config', function (req, res) {
     res.json(config);
+});
+
+router.get('/status', function(req, res) {
+    var minersData = [];
+    miners.forEach(function(miner) {
+        var data = miner.latestData;
+        minersData.push(data);
+    });
+    res.json(minersData);
 });
 
 app.use('/api', router);

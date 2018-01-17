@@ -16,6 +16,7 @@ class Miner extends EventEmitter {
         this.rigUniqueId = `${rigName}-${rigNo}`;
         this.refreshMsh = config.refreshMs;
         this.lastUpdate = new Date();
+        this.latestData = this.default();
         setInterval(() => {
             this.refresh();
         }, this.refreshMsh);
@@ -27,6 +28,7 @@ class Miner extends EventEmitter {
                 this.setState(config.states.running);
                 minerData.lastUpdate = moment().format("YY-MM-DD HH:mm:ss");
                 logger.trace(minerData);
+                this.latestData = minerData;
                 this.updateWssNewData(minerData);
             } catch(e) {
                 logger.error(e);
@@ -87,6 +89,25 @@ class Miner extends EventEmitter {
         } else {
             logger.error("No websocket!");
         }
+    }
+    
+    default() {
+        return {
+            id: this.rigUniqueId,
+            hashSpeedUnit: "N/A",
+            version: "unknown",
+            miningPool: "unknown pool",
+            uptime: moment.duration(0, 'minutes').format('d [days,] hh:mm:ss'),
+            total: {
+                hashRate: 0,
+                shares: 0,
+                rejected: 0
+            },
+            units: [],
+            totalHashSecondary: [],
+            detailHashSecondary: [],
+            invalidShares: []
+        };
     }
 }
 
