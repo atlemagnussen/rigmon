@@ -73,6 +73,6 @@
     "yui"           : false,
 
     "globals"       : {
-        "attz": true
+        "moment": true
     }
 }
