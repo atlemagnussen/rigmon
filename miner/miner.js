@@ -28,9 +28,8 @@ class Miner extends EventEmitter {
                 this.setState(config.states.running);
                 minerData.lastUpdate = moment().format("YY-MM-DD HH:mm:ss");
                 logger.trace(minerData);
-                this.latestData = minerData;
                 this.updateWssNewData(minerData);
-            } catch(e) {
+            } catch (e) {
                 logger.error(e);
             }
         });
@@ -76,6 +75,7 @@ class Miner extends EventEmitter {
 
     updateWss(type, data) {
         if (this.wss) {
+            this.latestData = data;
             logger.trace("clients: " + this.wss.clients.size);
             this.wss.clients.forEach(function each(ws) {
                 logger.debug("ws.readyState: " + ws.readyState);
@@ -90,8 +90,8 @@ class Miner extends EventEmitter {
             logger.error("No websocket!");
         }
     }
-    
-    default() {
+
+    default () {
         return {
             id: this.rigUniqueId,
             hashSpeedUnit: "N/A",
