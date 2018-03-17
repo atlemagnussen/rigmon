@@ -2,9 +2,15 @@
 var miners = [];
 
 var ws;
+
 function initWs() {
     if (!ws || ws.readyState === ws.CLOSED) {
-    ws = new WebSocket(`ws://${location.host}`);
+        var url = "ws://";
+        if (location.protocol === "https:") {
+            url = "wss://";
+        }
+        url += location.host;
+        ws = new WebSocket(url);
         ws.onerror = () => {
             postWsMessage('WebSocket error');
         };
@@ -20,7 +26,9 @@ function initWs() {
                 var key = data[0];
                 if (key === "miner") {
                     var minerData = data[1];
-                    var existing = miners.find(function(i) { return i.id === minerData.id; });
+                    var existing = miners.find(function(i) {
+                        return i.id === minerData.id;
+                    });
                     if (!existing) {
                         miners.push(minerData);
                     } else {
@@ -28,12 +36,12 @@ function initWs() {
                         miners.splice(index, 1);
                         miners.push(minerData);
                     }
-                    postMessage(['data',miners]);
+                    postMessage(['data', miners]);
                 } else if (key === "config") {
-                    postMessage(['config',data[1]]);
+                    postMessage(['config', data[1]]);
                 }
 
-            } catch(e) {
+            } catch (e) {
                 postWsMessage(msg.data);
             }
         };
@@ -41,6 +49,7 @@ function initWs() {
         postWsMessage("web socket is already open. readyState=" + ws.readyState);
     }
 }
+
 function disconnectWs() {
     if (ws && ws.readyState === ws.OPEN) {
         ws.close();
@@ -48,6 +57,7 @@ function disconnectWs() {
         postWsMessage("web socket is not open. readyState=" + ws.readyState);
     }
 }
+
 function postWsMessage(msg) {
     postMessage(['ws', msg]);
 }
