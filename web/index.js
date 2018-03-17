@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var rest = new Rest(); // jshint ignore:line
     var btnRefresh = document.getElementById("btnRefresh");
     var btnConnect = document.getElementById("btnConnect");
+    var btnConfig = document.getElementById("btnConfig");
     var btnDisconnect = document.getElementById("btnDisconnect");
     var textAreaOutput = document.getElementById("output");
     var minersEl = document.getElementById("miners");
@@ -23,9 +24,17 @@ document.addEventListener("DOMContentLoaded", function() {
             showMessage("no worker");
         }
     });
+    btnConfig.addEventListener("click", function() {
+        rest.call("GET", "api/config")
+        .then(function(data) {
+            minersEl.setAttribute("config", data);
+        }, showMessage);
+    });
     btnRefresh.addEventListener("click", function() {
         rest.call("GET", "api/status")
-        .then(showMessage, showMessage);
+        .then(function(data) {
+            minersEl.setAttribute("miners", data);
+        }, showMessage);
     });
 
     function showMessage(msg) {
