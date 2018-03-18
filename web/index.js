@@ -76,7 +76,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }).then(() => {
         showMessage("Loaded initial status");
     });
-    w.postMessage('connect');
 
     var loaded = "Loaded client " + new Date();
     showMessage(loaded);
