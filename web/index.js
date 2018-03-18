@@ -2,6 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     var rest = new Rest(); // jshint ignore:line
+    var contentDiv = document.getElementById("content");
     var btnRefresh = document.getElementById("btnRefresh");
     var btnConnect = document.getElementById("btnConnect");
     var btnConfig = document.getElementById("btnConfig");
@@ -30,7 +31,9 @@ document.addEventListener("DOMContentLoaded", function() {
     btnRefresh.addEventListener("click", function() {
         getStatus();
     });
-
+    contentDiv.addEventListener("dblclick", function() {
+        getStatus();
+    });
     function getConfig() {
         return rest.call("GET", "api/config")
         .then(function(data) {
