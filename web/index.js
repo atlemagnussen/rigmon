@@ -25,18 +25,27 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
     btnConfig.addEventListener("click", function() {
-        rest.call("GET", "api/config")
-        .then(function(data) {
-            minersEl.setAttribute("config", data);
-        }, showMessage);
+        getConfig();
     });
     btnRefresh.addEventListener("click", function() {
-        rest.call("GET", "api/status")
-        .then(function(data) {
-            minersEl.setAttribute("miners", data);
-        }, showMessage);
+        getStatus();
     });
 
+    function getConfig() {
+        return rest.call("GET", "api/config")
+        .then(function(data) {
+            minersEl.setAttribute("config", data);
+            return data;
+        }, showMessage);
+    }
+
+    function getStatus() {
+        return rest.call("GET", "api/status")
+        .then(function(data) {
+            minersEl.setAttribute("miners", data);
+            return data;
+        }, showMessage);
+    }
     function showMessage(msg) {
         textAreaOutput.value += "\n" + msg;
         textAreaOutput.scrollTop = textAreaOutput.scrollHeight;
@@ -59,6 +68,11 @@ document.addEventListener("DOMContentLoaded", function() {
             showMessage(event.data[1]);
         }
     };
+
+    getConfig()
+    .then(() => {
+        getStatus();
+    });
     w.postMessage('connect');
 
     var loaded = "Loaded client " + new Date();
