@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
     getConfig()
     .then(() => {
         showMessage("Loaded config");
-        getStatus();
+        return getStatus();
     }).then(() => {
         showMessage("Loaded initial status");
     });
