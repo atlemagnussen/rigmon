@@ -1,0 +1,78 @@
+{
+    "id": "9a1cf43e11f1f218",
+    "worker_id": "DESKTOP-48OEVS4",
+    "version": "2.5.2",
+    "kind": "cpu",
+    "ua": "XMRig/2.5.2 (Windows NT 10.0; Win64; x64) libuv/1.19.2 gcc/7.3.0",
+    "cpu": {
+        "brand": "AMD FX(tm)-6350 Six-Core Processor             ",
+        "aes": true,
+        "x64": true,
+        "sockets": 1
+    },
+    "algo": "cryptonight",
+    "hugepages": false,
+    "donate_level": 5,
+    "hashrate": {
+        "total": [
+            215.68,
+            216.88,
+            0.0
+        ],
+        "highest": 219.22,
+        "threads": [
+            [
+                47.26,
+                42.44,
+                0.0
+            ],
+            [
+                45.51,
+                43.21,
+                0.0
+            ],
+            [
+                40.96,
+                42.49,
+                0.0
+            ],
+            [
+                40.97,
+                43.64,
+                0.0
+            ],
+            [
+                40.96,
+                45.07,
+                0.0
+            ]
+        ]
+    },
+    "results": {
+        "diff_current": 5970,
+        "shares_good": 22,
+        "shares_total": 22,
+        "avg_time": 29,
+        "hashes_total": 133792,
+        "best": [
+            453884,
+            173961,
+            119194,
+            99889,
+            45783,
+            35830,
+            34997,
+            16648,
+            14796,
+            14573
+        ],
+        "error_log": []
+    },
+    "connection": {
+        "pool": "pool.monero.hashvault.pro:80",
+        "uptime": 648,
+        "ping": 93,
+        "failures": 0,
+        "error_log": []
+    }
+}

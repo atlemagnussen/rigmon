@@ -84,6 +84,48 @@ class Formatter {
 
         return standard;
     }
+
+    xmrig(data) {
+        let avgNum = function(numbers) {
+            function getSum(total, num) { return total + num; }
+            return Math.floor(numbers.reduce(getSum) / numbers.length);
+        };
+
+        var standard = {
+            id: this.rigUniqueId,
+            hashSpeedUnit: this.config.unit,
+            version: `XMRig ${data.kind} ${data.version}`,
+            miningPool: data.connection.pool,
+            uptime: moment.duration(parseInt(data.connection.uptime), 'seconds').format('d [days,] hh:mm:ss'),
+            total: {
+                hashRate: avgNum(data.hashrate.total),
+                shares: data.results.shares_good,
+                rejected: data.results.shares_total - data.results.shares_good
+            },
+            units: []
+        };
+
+        if (data.health) {
+            data.health.forEach((unit) => {
+                var convertedUnit = {
+                    hashRate: 0,
+                    temperature: `${unit.temp}ºC`,
+                    extraInfo: `Power ${unit.power}W Fan speed ${unit.fan}%`
+                };
+                standard.units.push(convertedUnit);
+            });
+        }
+
+        return standard;
+    }
+
+    getAvg(amountArr) {
+        let total = 0;
+        for(var i=0; i<amountArr.length; i++) {
+            total += amountArr[i];
+        }
+        return total/amountArr.length;
+    }
 }
 
 module.exports = new Formatter();

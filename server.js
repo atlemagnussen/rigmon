@@ -10,6 +10,7 @@ const ws = require('ws');
 const formatter = require('./miner/formatter.js');
 const Claymore = require('./miner/claymore.js');
 const Ewbf = require('./miner/ewbf.js');
+const Xmrig = require('./miner/xmrig.js');
 
 // static server
 const app = express();
@@ -34,15 +35,22 @@ if (config.rigs) {
         if(config.rigs.hasOwnProperty(r)) {
             let rig = config.rigs[r];
             if (rig.miners && Array.isArray(rig.miners)) {
-                for(var i=0; i<rig.miners.length; i++) {
+                for(var i=rig.miners.length-1; i>=0; i--) {
                     var minerConf = rig.miners[i];
-                    logger.info(`rig ${r}-${minerConf.no} ${minerConf.type}`);
-                    if (minerConf.type === "claymore") {
-                        var claymoreMiner = new Claymore(r, minerConf, wss);
-                        miners.push(claymoreMiner);
-                    } else if (minerConf.type === "ewbf") {
-                        var ewbfMiner = new Ewbf(r, minerConf, wss);
-                        miners.push(ewbfMiner);
+                    logger.info(`rig ${r}-${minerConf.no} ${minerConf.type} - is enabled ${minerConf.enabled}`);
+                    if (minerConf.enabled) {
+                        if (minerConf.type === "claymore") {
+                            var claymoreMiner = new Claymore(r, minerConf, wss);
+                            miners.push(claymoreMiner);
+                        } else if (minerConf.type === "ewbf") {
+                            var ewbfMiner = new Ewbf(r, minerConf, wss);
+                            miners.push(ewbfMiner);
+                        } else if (minerConf.type === "xmrig") {
+                            var xmrig = new Xmrig(r, minerConf, wss);
+                            miners.push(xmrig);
+                        }
+                    } else {
+                        rig.miners.splice(i, 1);
                     }
                 }
             }
