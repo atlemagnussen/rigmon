@@ -103,7 +103,9 @@ class Formatter {
             for(let i=0; i<data.hashrate.threads.length; i++) {
                 let thread = data.hashrate.threads[i];
                 let convertedUnit = {
-                    hashRate: thread[0]
+                    hashRate: thread[0],
+                    temperature: "N/AºC",
+                    extraInfo: ""
                 };
                 standard.units.push(convertedUnit);
             }
@@ -118,6 +120,7 @@ class Formatter {
                     convertedUnit.extraInfo = `Power ${unit.power}W Fan speed ${unit.fan}%`;
                 } else {
                     convertedUnit = {
+                        hashRate: 0,
                         temperature: `${unit.temp}ºC`,
                         extraInfo: `Power ${unit.power}W Fan speed ${unit.fan}%`
                     };
