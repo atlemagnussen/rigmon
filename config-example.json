@@ -51,7 +51,7 @@
     },
     "log": {
       "appenders": {
-          "tofile": { "type": "file", "filename": "minermon.log" },
+          "tofile": { "type": "file", "filename": "rigmon.log" },
           "console": { "type": "console" }
       },
       "categories": {
