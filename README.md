@@ -13,7 +13,7 @@ Claymore always exposes it's api on port 3333, but you have to open up firewall
 - [EWBF's Zcash NVIDIA](https://bitcointalk.org/index.php?topic=1707546.0)  
 EWBF will not default expose it's api for other than localhost.  
 Change this in miner.cfg file, line: api 127.0.0.1:42000 -> 192.168.1.11 or whatever the ip is. You can also change the port if that suits you.
-- [XMRig CPU](https://github.com/xmrig/xmrig)
+- [XMRig CPU/AMD/NVIDIA](https://github.com/xmrig)
 XMRig does not expose by default, set api.port in config.json file
 ### Roadmap
 - [Claymore's Dual AMD/NVIDIA](https://bitcointalk.org/index.php?topic=1433925.0)
