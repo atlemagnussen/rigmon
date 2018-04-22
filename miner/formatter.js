@@ -99,16 +99,31 @@ class Formatter {
             },
             units: []
         };
-
-        if (data.health) {
-            data.health.forEach((unit) => {
-                var convertedUnit = {
-                    hashRate: 0,
-                    temperature: `${unit.temp}ºC`,
-                    extraInfo: `Power ${unit.power}W Fan speed ${unit.fan}%`
+        if (data.hashrate.threads) {
+            for(let i=0; i<data.hashrate.threads.length; i++) {
+                let thread = data.hashrate.threads[i];
+                let convertedUnit = {
+                    hashRate: thread[0]
                 };
                 standard.units.push(convertedUnit);
-            });
+            }
+        }
+        if (data.health) {
+            for(let y=0; y<data.health.length; y++) {
+                let unit = data.health[y];
+                let convertedUnit;
+                if (standard.units && standard.units[y]) {
+                    convertedUnit = standard.units[y];
+                    convertedUnit.temperature = `${unit.temp}ºC`;
+                    convertedUnit.extraInfo = `Power ${unit.power}W Fan speed ${unit.fan}%`;
+                } else {
+                    convertedUnit = {
+                        temperature: `${unit.temp}ºC`,
+                        extraInfo: `Power ${unit.power}W Fan speed ${unit.fan}%`
+                    };
+                    standard.units.push(convertedUnit);
+                }
+            }
         }
 
         return standard;
