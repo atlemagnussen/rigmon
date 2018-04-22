@@ -4,36 +4,45 @@
     "minerTimeout": 3000,
     "rigs": {
         "rig1": {
+            "host": "192.168.1.10",
             "miners": [
                 {
+                    "enabled": true,
                     "type": "claymore",
-                    "host": "192.168.1.10",
                     "port": 3333,
                     "unit": "H/s"
                 },
                 {
+                    "enabled": false,
                     "type": "ewbf",
-                    "host": "192.168.1.10",
                     "port": 42000,
                     "unit": "H/s"
                 }
             ]
         },
         "rig2": {
+            "host": "192.168.1.11",
             "miners": [
                 {
+                    "enabled": true,
                     "type": "claymore",
-                    "host": "192.168.1.11",
                     "port": 3333,
                     "unit": "H/s"
-                }
+                },
+                {
+                    "enabled": true,
+                    "type": "xmrig",
+                    "port": 55555,
+                    "unit": "H/s"
+                },
             ]
         },
-        "rig4": {
+        "rig3": {
+            "host": "192.168.1.12",
             "miners": [
                 {
+                    "enabled": true,
                     "type": "ewbf",
-                    "host": "192.168.1.12",
                     "port": 42000,
                     "unit": "H/s"
                 }
