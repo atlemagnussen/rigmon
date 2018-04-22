@@ -21,6 +21,7 @@ if (config.rigs) {
                 for(var i=0;i<rig.miners.length;i++) {
                     let miner = rig.miners[i];
                     miner.no = i+1;
+                    miner.host = rig.host;
                 }
             }
         }
