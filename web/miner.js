@@ -56,7 +56,7 @@ class Miner extends HTMLElement {
             });
             htmlString += "</p>";
         } else {
-            htmlString += `<p class="error">${this.miner.state} - last seen ${moment(this.miner.lastSeen).format("YY-MM-DD HH:mm:ss")}<br/><span class="time">updated ${this.miner.lastUpdate}</span></p>
+            htmlString += `<p class="error">${this.miner.state} - last seen ${moment(this.miner.lastSeen).format("YYYY-MM-DD HH:mm:ss")}<br/><span class="time">updated ${this.miner.lastUpdate}</span></p>
             <p class="error"> ${this.miner.errorMsg}</p>`;
         }
 
