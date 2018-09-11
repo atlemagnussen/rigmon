@@ -26,7 +26,7 @@ class Miner extends EventEmitter {
                 var minerData = this.formatter(data);
                 minerData.state = config.states.running;
                 this.setState(config.states.running);
-                minerData.lastUpdate = moment().format("YY-MM-DD HH:mm:ss");
+                minerData.lastUpdate = moment().format("YYYY-MM-DD HH:mm:ss");
                 logger.trace(minerData);
                 this.updateWssNewData(minerData);
             } catch (e) {
@@ -40,7 +40,7 @@ class Miner extends EventEmitter {
             var errorData = {
                 id: this.rigUniqueId,
                 lastSeen: this.lastSeen ? this.lastSeen : "never",
-                lastUpdate: moment().format("YY-MM-DD HH:mm:ss"),
+                lastUpdate: moment().format("YYYY-MM-DD HH:mm:ss"),
                 state: config.states.error,
                 errorMsg: "No connection"
             };

@@ -4,7 +4,7 @@
   "description": "Miner monitor for gpu and cpu miners with built in apis",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "copy": "cp node_modules/moment/min/moment.min.js web/"
   },
   "repository": {
     "type": "git",
