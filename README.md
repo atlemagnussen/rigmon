@@ -35,4 +35,4 @@ XMRig does not expose by default, set api.port in config.json file
 ### mobile
 - Will update once you open
 - Double tap to update again
-https://s3-eu-west-1.amazonaws.com/atle-static/rigmon-mobile.png
+![mobile img](https://s3-eu-west-1.amazonaws.com/atle-static/rigmon-mobile.png)
