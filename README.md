@@ -30,9 +30,11 @@ XMRig does not expose by default, set api.port in config.json file
 - Click "connect" to get continuous updates via websocket
 - Click "update" to get instant update
 - Click "config" if you just updated configuration
+
 ![desktop img](https://s3-eu-west-1.amazonaws.com/atle-static/rigmon-desktop.png)
 
 ### mobile
 - Will update once you open
 - Double tap to update again
+
 ![mobile img](https://s3-eu-west-1.amazonaws.com/atle-static/rigmon-mobile.png)
