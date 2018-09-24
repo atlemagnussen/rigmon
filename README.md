@@ -1,8 +1,32 @@
 # Rigmon
 
-Miner monitor for different cpu and gpu miners.
+Miner monitor for different cpu and gpu miners. Supports different miner softwares per rig/pc.
 
-Beta version 0.1.0
+Quick overview of config structure:
+```json
+{
+    "rigs": {
+        "rig1": {
+            "host": "192.168.1.10",
+            "miners": [
+                {
+                    "enabled": true,
+                    "type": "claymore",
+                    "port": 3333,
+                    "unit": "H/s"
+                },
+                {
+                    "enabled": false,
+                    "type": "ewbf",
+                    "port": 42000,
+                    "unit": "H/s"
+                }
+            ]
+        },
+        "rig2": {
+            "host": "192.168.1.11",
+            "miners": "..."
+```
 
 ## How to run
 copy `config-example.json` into folder `./config` and rename it `config.json.` Then add your own settings which hopefully are self explainatory.
