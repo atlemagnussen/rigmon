@@ -5,7 +5,7 @@ Miner monitor for different cpu and gpu miners.
 Beta version 0.1.0
 
 ## How to run
-copy config-example.json into a config folder and rename it config.json. Then add your own settings which hopefully are self explainatory.
+copy `config-example.json` into folder `./config` and rename it `config.json.` Then add your own settings which hopefully are self explainatory.
 [config-example.json](https://github.com/atlemagnussen/rigmon/blob/master/config-example.json)
 ## Supported miners
 - [Claymore's Zcash AMD](https://bitcointalk.org/index.php?topic=1670733.0)  
