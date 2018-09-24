@@ -25,4 +25,5 @@ XMRig does not expose by default, set api.port in config.json file
 ### Debug run
 - `node server.js`
 
-[![](https://codescene.io/projects/1987/status.svg) Get more details at **codescene.io**.](https://codescene.io/projects/1987/jobs/latest-successful/results)
+## How it looks
+![desktop img](https://s3-eu-west-1.amazonaws.com/atle-static/rigmon-desktop.png)
