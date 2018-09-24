@@ -25,5 +25,13 @@ XMRig does not expose by default, set api.port in config.json file
 ### Debug run
 - `node server.js`
 
-## How it looks
+## GUI
+### desktop
+- Click "connect" to get continuous updates via websocket
+- Click "update" to get instant update
 ![desktop img](https://s3-eu-west-1.amazonaws.com/atle-static/rigmon-desktop.png)
+
+### mobile
+- Will update once you open
+- Double tap to update again
+https://s3-eu-west-1.amazonaws.com/atle-static/rigmon-mobile.png
