@@ -99,11 +99,28 @@ class Formatter {
             },
             units: []
         };
+        var convertXmrigHashArray = (rates) => {
+            if (!Array.isArray(rates)) {
+                return 0;
+            }
+            var counting = 0;
+            var hashtotal = 0;
+            for(var i=0; i<rates.length; i++) {
+                let r = rates[i];
+                if (!r) {
+                    continue;
+                }
+                counting++;
+                hashtotal += r;
+            }
+            return hashtotal/counting;
+        };
+
         if (data.hashrate.threads) {
             for(let i=0; i<data.hashrate.threads.length; i++) {
                 let thread = data.hashrate.threads[i];
                 let convertedUnit = {
-                    hashRate: thread[0],
+                    hashRate: convertXmrigHashArray(thread),
                     temperature: "N/AºC",
                     extraInfo: ""
                 };
