@@ -27,8 +27,8 @@ var tstdata = {
     "hashrate": {
         "total": [
             0.0,
-            0.0,
-            0.0
+            49,
+            57.7
         ],
         "highest": 133.43,
         "threads": [

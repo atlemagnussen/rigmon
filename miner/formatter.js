@@ -86,19 +86,6 @@ class Formatter {
     }
 
     xmrig(data) {
-        var standard = {
-            id: this.rigUniqueId,
-            hashSpeedUnit: this.config.unit,
-            version: `XMRig ${data.kind} ${data.version}`,
-            miningPool: data.connection.pool,
-            uptime: moment.duration(parseInt(data.connection.uptime), 'seconds').format('d [days,] hh:mm:ss'),
-            total: {
-                hashRate: data.hashrate.total[0],
-                shares: data.results.shares_good,
-                rejected: data.results.shares_total - data.results.shares_good
-            },
-            units: []
-        };
         var convertXmrigHashArray = (rates) => {
             if (!Array.isArray(rates)) {
                 return 0;
@@ -117,6 +104,20 @@ class Formatter {
                 return 0;
             }
             return (hashtotal/counting).toFixed(2);
+        };
+
+        var standard = {
+            id: this.rigUniqueId,
+            hashSpeedUnit: this.config.unit,
+            version: `XMRig ${data.kind} ${data.version}`,
+            miningPool: data.connection.pool,
+            uptime: moment.duration(parseInt(data.connection.uptime), 'seconds').format('d [days,] hh:mm:ss'),
+            total: {
+                hashRate: convertXmrigHashArray(data.hashrate.total),
+                shares: data.results.shares_good,
+                rejected: data.results.shares_total - data.results.shares_good
+            },
+            units: []
         };
 
         if (data.hashrate.threads) {
