@@ -103,7 +103,8 @@ class Formatter {
             if (!hashtotal) {
                 return 0;
             }
-            return (hashtotal/counting).toFixed(2);
+            var average = hashtotal/counting;
+            return average.toFixed(2);
         };
 
         var standard = {
