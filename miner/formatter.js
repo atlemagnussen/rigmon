@@ -113,7 +113,10 @@ class Formatter {
                 counting++;
                 hashtotal += r;
             }
-            return hashtotal/counting;
+            if (!hashtotal) {
+                return 0;
+            }
+            return (hashtotal/counting).toFixed(2);
         };
 
         if (data.hashrate.threads) {
