@@ -42,7 +42,7 @@ class Miner extends HTMLElement {
             this.config = JSON.parse(newValue);
             this.updateConfig();
         } else if (attributeName === 'miner') {
-            if (this.config.id) {
+            if (this.config && this.config.id) {
                 fetch(`/api/status/${this.config.id}`).then((res) => {
                     this.miner = res.json();
                     this.update();
