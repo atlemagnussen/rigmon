@@ -31,12 +31,12 @@ class Miner extends HTMLElement {
         console.log("connected");
     }
 
-    get miner() {
-        return this.getAttribute('miner');
-    }
-    set miner(newValue) {
-        this.setAttribute('miner', newValue);
-    }
+    // get miner() {
+    //     return this.getAttribute('miner');
+    // }
+    // set miner(newValue) {
+    //     this.setAttribute('miner', newValue);
+    // }
     attributeChangedCallback(attributeName, oldValue, newValue) {
         if (attributeName === 'config') {
             this.config = JSON.parse(newValue);
