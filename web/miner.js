@@ -31,13 +31,23 @@ class Miner extends HTMLElement {
         console.log("connected");
     }
 
+    get miner() {
+        return this.getAttribute('miner');
+    }
+    set miner(newValue) {
+        this.setAttribute('miner', newValue);
+    }
     attributeChangedCallback(attributeName, oldValue, newValue) {
         if (attributeName === 'config') {
             this.config = JSON.parse(newValue);
             this.updateConfig();
         } else if (attributeName === 'miner') {
-            this.miner = JSON.parse(newValue);
-            this.update();
+            if (this.config.id) {
+                fetch(`/api/status/${this.config.id}`).then((res) => {
+                    this.miner = res.json();
+                    this.update();
+                });
+            }
         }
     }
     update() {

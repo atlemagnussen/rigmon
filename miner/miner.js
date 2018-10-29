@@ -7,8 +7,8 @@ class Miner extends EventEmitter {
     constructor(rigName, rigNo) {
         super();
         if (!rigName || !rigNo) {
-            logger.error("no rig name!");
-            throw "no rig name!";
+            logger.error("no rig name or no!");
+            throw "no rig name or no!";
         }
         this.rigName = rigName;
         this.rigNo = rigNo;

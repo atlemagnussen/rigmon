@@ -94,7 +94,7 @@ class Miners extends HTMLElement {
             var elo = this.minersElements.find(function(e) { return e.id === miner.id; }); // jshint ignore:line
             if (elo) {
                 var el = elo.element;
-                el.setAttribute('miner', JSON.stringify(miner));
+                el.miner = miner.lastUpdate;
             }
         }
         this.totalDiv.innerHTML = `Total hashrate all rigs <span class="bold">${totalAll.hashRate} ${totalAll.unit}</span>`;

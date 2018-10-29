@@ -59,15 +59,15 @@ if (config.rigs) {
 }
 
 // api
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
     res.json({ message: 'This is the api' });
 });
 
-router.get('/config', function (req, res) {
+router.get('/config', (req, res) => {
     res.json(config);
 });
 
-router.get('/status', function(req, res) {
+router.get('/status', (req, res) => {
     var minersData = [];
     miners.forEach(function(miner) {
         var data = miner.latestData;
@@ -76,7 +76,22 @@ router.get('/status', function(req, res) {
     res.json(minersData);
 });
 
+router.get('/status/:id', (req, res) => {
+    let minerData = null;
+    let id = req.params.id;
+    miners.forEach((miner) => {
+        if (miner.rigUniqueId === id) {
+            minerData = miner.latestData;
+        }
+    });
+    if (minerData) {
+        res.json(minerData);
+    } else {
+        res.status(404).send(`Rig id ${id} not found`);
+    }
+});
+
 app.use('/api', router);
-server.listen(config.port, function listening() {
+server.listen(config.port, () => {
     logger.info('Listening on %d', server.address().port);
 });
